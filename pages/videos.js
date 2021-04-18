@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import SocialIcons from '../components/SocialIcons';
 import YoutubePlaylist from '../components/YoutubePlaylist';
 
 
@@ -16,7 +17,11 @@ export async function getServerSideProps() {
   }
 }
 
-const VideosPageContainer = styled.main``;
+const VideosPageContainer = styled.main`
+@media (max-width: 800px) {
+  padding: 0 1rem;
+}
+`;
 
 
 const videos = ({ data }) => {
@@ -31,7 +36,7 @@ const videos = ({ data }) => {
         </p>
       </article>
       <YoutubePlaylist videos={data} />
-
+      <SocialIcons />
     </VideosPageContainer>
   )
 }

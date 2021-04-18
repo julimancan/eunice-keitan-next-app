@@ -1,13 +1,46 @@
 import styled from '@emotion/styled';
 import Head from 'next/head'
-import InstaFeed from '../components/InstaFeed';
+import InstagramFeed from '../components/InstagramFeed';
 import SocialIcons from '../components/SocialIcons';
 import SoundCloudPlayer from '../components/SoundCloudPlayer';
+import Instagram from "instagram-web-api";
+
+
+export async function getStaticProps(context) {
+  const client = new Instagram({
+    username: process.env.IG_USERNAME,
+    password: process.env.IG_PASSWORD,
+  })
+  console.log("process.env.IG_USERNAME", process.env.IG_USERNAME)
+  let posts = [];
+
+  let images = [];
+  
+  try {
+    await client.login()
+    const instagram = await client.getPhotosByUsername({
+      username: process.env.IG_USERNAME,
+    })
+
+    if (instagram["user"]["edge_owner_to_timeline_media"]["count"] > 0) {
+      // if we receive timeline data back
+      //  update the posts to be equal
+      // to the edges that were returned from the instagram API response
+      posts = instagram["user"]["edge_owner_to_timeline_media"]["edges"]
+    }
+  } catch (err) {
+    console.log("Something went wrong while logging into Instagram", err)
+  }
+
+  return {
+    props: {
+      instagramPosts: posts,
+    }
+  }
+}
 
 
 const HomeContainer = styled.main`
-
- 
   article {
     /* background: red; */
     padding-top: 2rem;
@@ -39,6 +72,21 @@ const HomeContainer = styled.main`
     position: relative;
     /* margin-bottom: 2rem; */
     padding: 2rem;
+    @media (max-width: 800px) {
+     flex-direction: column; 
+     /* background: red; */
+    .soundCloud { 
+      width: 30%;
+    }
+    }
+      /* background: red; */
+    @media (max-width: 800px) {
+    .soundCloud {
+      width: 100%;
+      margin-bottom: 1rem;
+
+    }
+    }
     .bio {
       width: 50%;      
       margin: 0 0 0 2rem;
@@ -57,12 +105,14 @@ const HeroImage = styled.img`
 `;
 
 
-export default function Home({ data }) {
+export default function Home({ instagramPosts }) {
+  // console.log(`instagramPosts`, instagramPosts)
+  // const posts = instagramPosts;
   return (
     <div>
       <Head>
         <title>Eunice Keitan</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://static.wixstatic.com/media/14399d_15c0631230cd478990b16124f1fb795d~mv2.jpg/v1/fill/w_245,h_265,al_c,q_80,usm_0.66_1.00_0.01/StandingWIthYou-1080x1080.webp" />
       </Head>
 
       <HomeContainer>
@@ -83,7 +133,7 @@ export default function Home({ data }) {
         </article>
         <section>
           <div className="soundCloud">
-            <SoundCloudPlayer/>
+            <SoundCloudPlayer />
           </div>
           <div className="bio">
             <h3>
@@ -102,7 +152,7 @@ export default function Home({ data }) {
             </span>
           </div>
         </section>
-        <InstaFeed />
+        <InstagramFeed instagramPosts={instagramPosts}/>
         <SocialIcons />
       </HomeContainer>
 

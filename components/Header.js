@@ -74,7 +74,7 @@ const Navigation = () => {
             {menuItems.map((item) => {
               // console.log("item", item) 
             return (
-              <Link href={item.url} >
+              <Link href={item.url} key={item.id}>
                 <DesktopNavItem onClick={() => {setSelectedNavItem(item.url); console.log(selectedNavItem)}} key={item.index} selected={selectedNavItem === item.url ? true : false}>
                   <h3>
                     {item.name}

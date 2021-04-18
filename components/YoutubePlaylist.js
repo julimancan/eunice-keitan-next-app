@@ -18,7 +18,12 @@ const YoutubeContainer = styled.section`
       align-items: center;
       /* background: red; */
     }
-    
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
   }
 `;
 

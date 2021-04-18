@@ -6,7 +6,7 @@ const SoundCloudPlayer = () => {
       <ReactPlayer 
         className="react-player"
         url="https://soundcloud.com/eunicekeitan/sets/eunice-keitan-top-tracks"
-        width="30vw"
+        width="100%"
       />
     </div>
   )
