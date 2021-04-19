@@ -3,7 +3,11 @@ import { useState } from 'react'
 import menuItems from './menuItems';
 import { stylingVariables } from './stylingVariables';
 import Menu from './BurgerMenu';
-import Link from 'next/link'
+import Link from 'next/link';
+import { PayPalButton } from "react-paypal-button-v2";
+import Head from 'next/head';
+import PayPal from './PayPal';
+import DonationAmount from './DonationAmount';
 
 const DesktopNav = styled.nav`
   /* background: red; */
@@ -59,33 +63,65 @@ const DesktopNavItem = styled.li`
 
 const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const [selectedNavItem, setSelectedNavItem] = useState("/")
+  const [selectedNavItem, setSelectedNavItem] = useState("/");
+  const [checkout, setCheckout] = useState(false);
+  const [donationAmount, setDonationAmount] = useState(10);
+
   return (
-      <Header>
-        <Menu navOpen={navOpen} setNavOpen={setNavOpen}/>
-        <Link href="/" onClick={() => setNavOpen(false)}>
-          <Logo>
-            <h1>Eunice Keitan</h1>
-            <h5>Musician | Singer-Songwriter</h5>
-          </Logo>
-        </Link>
-        <DesktopNav>
-          <ul>
-            {menuItems.map((item) => {
-              // console.log("item", item) 
+    <Header>
+      <Head>
+        <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
+      </Head>
+      <Menu navOpen={navOpen} setNavOpen={setNavOpen} />
+      <Link href="/" onClick={() => setNavOpen(false)}>
+        <Logo>
+          <h1>Eunice Keitan</h1>
+          <h5>Musician | Singer-Songwriter</h5>
+        </Logo>
+      </Link>
+      <DesktopNav>
+        <ul>
+          {menuItems.map((item) => {
+            // console.log("item", item) 
             return (
               <Link href={item.url} key={item.id}>
-                <DesktopNavItem onClick={() => {setSelectedNavItem(item.url); console.log(selectedNavItem)}} key={item.index} selected={selectedNavItem === item.url ? true : false}>
+                <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); console.log(selectedNavItem) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
                   <h3>
                     {item.name}
                   </h3>
                 </DesktopNavItem>
               </Link>
 
-            )})}
-          </ul>
-        </DesktopNav>
-      </Header>
+            )
+          })}
+          {/* <PayPalButton 
+              amount="0.01"
+              onSuccess={(details, data) => {
+                console.log(`details`, details)
+                alert("Transaction completed by " + details.payer.name.given_name);
+                
+              }}
+            
+
+            /> */}
+        </ul>
+      </DesktopNav>
+      {checkout ? (
+        <>
+
+
+          <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} setCheckout={setCheckout}/>
+
+
+          {/* <PayPal amount={donationAmount} /> */}
+        </>
+
+      ) : (
+        <button onClick={() => setCheckout(true)}>
+          Donate!
+        </button>
+      )}
+    </Header>
   )
 }
 

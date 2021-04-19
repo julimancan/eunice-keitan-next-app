@@ -120,7 +120,7 @@ const Menu = ({ navOpen, setNavOpen }) => {
    
       <NavigationList open={navOpen}>
         {menuItems.map((item) => (
-          <NavigationItem key={item.index} open={navOpen} index={item.index} >
+          <NavigationItem key={item.index} open={navOpen} index={item.index}>
             <Link href={item.url}>
               <h3 onClick={() => setNavOpen(false)}>
                 {item.name}

@@ -32,7 +32,7 @@ const InstagramFeed = ({ instagramPosts }) => {
     <InstaContainer>
 
       <h2>
-        <a href="https://www.instagram.com/yourinstagramhandle/">
+        <a href="https://www.instagram.com/eunicekeitan/">
           Follow my journey on Instagram
         </a>
 
@@ -42,15 +42,15 @@ const InstagramFeed = ({ instagramPosts }) => {
          instagram posts that were returned
          from the Instagram API*/}
         {instagramPosts.map(({ node }, i) => {
-          console.log("node", node)
+          // console.log("node", node)
           return (
             // let's wrap each post in an anchor tag
             // and construct the url for the post using
             // the shortcode that was returned from the API
-            <li>
+            <li   key={i}>
               <a
                 href={`https://www.instagram.com/p/${node.shortcode}`}
-                key={i}
+              
                 aria-label="view image on Instagram"
                 target="_blank"
               >
@@ -60,14 +60,14 @@ const InstagramFeed = ({ instagramPosts }) => {
 
                   <img
                     src={node.thumbnail_src}
-                    alt={
+                    alt={""
                       // the caption with hashtags removed
-                      node.edge_media_to_caption.edges[0].node.text
-                        .replace(/(#\w+)+/g, "")
-                        .trim()
+                      // node.edge_media_to_caption.edges[0].node.text
+                      //   .replace(/(#\w+)+/g, "")
+                      //   .trim()
                     }
                   />
-                <span>{node.edge_media_to_caption.edges[0].node.text}</span>
+                {/* <span>{node.edge_media_to_caption.edges[0].node.text}</span> */}
               </a>
             </li>
           )

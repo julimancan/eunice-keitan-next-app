@@ -11,7 +11,6 @@ export async function getStaticProps(context) {
     username: process.env.IG_USERNAME,
     password: process.env.IG_PASSWORD,
   })
-  console.log("process.env.IG_USERNAME", process.env.IG_USERNAME)
   let posts = [];
 
   let images = [];
@@ -76,22 +75,24 @@ const HomeContainer = styled.main`
      flex-direction: column; 
      /* background: red; */
     .soundCloud { 
-      width: 30%;
+      width: 100%;
     }
     }
       /* background: red; */
-    @media (max-width: 800px) {
-    .soundCloud {
-      width: 100%;
-      margin-bottom: 1rem;
-
-    }
     }
     .bio {
       width: 50%;      
       margin: 0 0 0 2rem;
       border-left: 3px solid black;
       padding-left: 2rem;
+    }
+    @media (max-width: 800px) {
+    .soundCloud {
+      width: 30%;
+      margin-bottom: 1rem;
+    }
+    .bio {
+      width: 80%;
     }
   }
 `;
