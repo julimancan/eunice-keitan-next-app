@@ -9,7 +9,8 @@ const LayoutWrapper = styled.div`
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    margin-bottom: 3rem;
+    /* background: red; */
+    /* margin-bottom: 3rem; */
     article, section {
     width: 100%;
     @media (min-width: 800px) {

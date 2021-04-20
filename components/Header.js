@@ -141,9 +141,12 @@ const Navigation = () => {
         </div>
 
       ) : (
-        <button className="donate-btn" onClick={() => setCheckout(true)}>
+        // <button className="donate-btn" onClick={() => setCheckout(true)}>
+        //   Donate!
+        // </button>
+        <Link href="/donate" className="donate-btn">
           Donate!
-        </button>
+        </Link> 
       )}
     </Header>
   )

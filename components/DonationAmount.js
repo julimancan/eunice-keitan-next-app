@@ -4,18 +4,19 @@ import PayPal from './PayPal'
 import { stylingVariables } from './stylingVariables';
 
 const DonationContainer = styled.div`
-  position: absolute;
+  /* position: absolute; */
   background: ${stylingVariables.menuBackgroundColor};
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
+  /* min-height: 80vh; */
+  /* width: 100vw; */
+  /* top: 0; */
+  /* left: 0; */
   section {
+  /* background: red; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%
+    /* height: 100% */
     
   }
 `;
@@ -37,7 +38,7 @@ const DonationAmount = ({ donationAmount, setDonationAmount, setCheckout }) => {
         <label>How much would you like to donate?</label>
         <input type="number" id="donation-amount" name="donation-amount" onChange={inputHandler} value={donationAmount} />
         <button onClick={() => setOpenPaypal(true)}>Donate ${donationAmount}</button>
-        <button onClick={() => setCheckout(false)}> close </button>
+        {/* <button onClick={() => setCheckout(false)}> close </button> */}
       </section>
       )}
     </DonationContainer>

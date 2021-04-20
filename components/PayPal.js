@@ -3,12 +3,12 @@ import React, { useEffect, useRef } from 'react'
 
 const PayPaylContainer = styled.div`
   /* background: red; */
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  /* overflow-y: scroll; */
 `;
 
 const PayPal = ({ donationAmount, setOpenPaypal }) => {

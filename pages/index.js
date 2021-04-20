@@ -10,7 +10,9 @@ export async function getStaticProps(context) {
   const client = new Instagram({
     username: process.env.IG_USERNAME,
     password: process.env.IG_PASSWORD,
-  })
+  });
+
+
   let posts = [];
 
   let images = [];
