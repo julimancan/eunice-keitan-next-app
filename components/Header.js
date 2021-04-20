@@ -48,7 +48,7 @@ const Header = styled.header`
   .donate-btn {
     position: absolute;
     right: 1.5rem;
-    top: 5rem;
+    top: 6rem;
   }
   @media (min-width: 900px) {
     padding: 2rem 12% 2rem 10%;

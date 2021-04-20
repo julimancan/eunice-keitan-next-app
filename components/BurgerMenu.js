@@ -6,7 +6,7 @@ import { stylingVariables } from './stylingVariables';
 const transitionDuration = ".4s";
 
 const BurgerContainer = styled.div`
-  top: 3rem;
+  top: 4rem;
   right: 2rem;
   position: fixed;
   color: white;
