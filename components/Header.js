@@ -40,7 +40,10 @@ const Header = styled.header`
   padding: 2rem;
   position: fixed;
   z-index: 100;
-
+  button {
+    background: black;
+    color: white
+  }
   @media (min-width: 900px) {
     padding: 2rem 12% 2rem 10%;
   }
