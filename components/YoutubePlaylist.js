@@ -120,7 +120,7 @@ export default function YoutubePlaylist({ videos }) {
 
       <ul>
 
-        {videos.items.map((item) => {
+        {videos.items && videos.items.map((item) => {
           console.log(item)
           const { id, snippet = {} } = item;
           const { title, thumbnails = {}, resourceId, description } = snippet;

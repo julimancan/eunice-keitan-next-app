@@ -34,7 +34,7 @@ const DonationAmount = ({ donationAmount, setDonationAmount, setCheckout }) => {
         <PayPal donationAmount={donationAmount} setOpenPaypal={setOpenPaypal}/>
       ) : (
       <section>
-        <label for="donation-amount">How much would you like to donate?</label>
+        <label>How much would you like to donate?</label>
         <input type="number" id="donation-amount" name="donation-amount" onChange={inputHandler} value={donationAmount} />
         <button onClick={() => setOpenPaypal(true)}>Donate ${donationAmount}</button>
         <button onClick={() => setCheckout(false)}> close </button>

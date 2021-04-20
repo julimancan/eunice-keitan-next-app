@@ -73,10 +73,13 @@ const Navigation = () => {
     setNavOpen(false);
     setCheckout(false);
   }
+
+  const paypalClienId = "Afa6i-QAgOcfDWfCFWHg5maT_58-gGIfsVoJe7BsmGv9bPLv3Ehn5nQ8yCN-NE2nCeKw-Zupq-wEszzO";
+  
   return (
     <Header>
       <Head>
-        <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
+        <script src={`https://www.paypal.com/sdk/js?client-id=${paypalClienId}&currency=CAD`}></script>
       </Head>
       <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav}/>
       <Link href="/" onClick={() => setNavOpen(false)}>

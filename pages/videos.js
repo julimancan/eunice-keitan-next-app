@@ -4,10 +4,10 @@ import YoutubePlaylist from '../components/YoutubePlaylist';
 
 
 const YOUTUBE_PLAYLIST_ITEMS_API = "https://www.googleapis.com/youtube/v3/playlistItems";
-const TooBrokePlaylistId = "PLpkedUE5iQ2c-QMpY4hOZnll1yE2hUZLT";
+const tooBrokePlaylistId = "PLpkedUE5iQ2c-QMpY4hOZnll1yE2hUZLT";
 
 export async function getServerSideProps() {
-  const res = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${TooBrokePlaylistId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
+  const res = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${tooBrokePlaylistId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
   const data = await res.json();
 
   return {
