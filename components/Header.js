@@ -4,7 +4,6 @@ import menuItems from './menuItems';
 import { stylingVariables } from './stylingVariables';
 import Menu from './BurgerMenu';
 import Link from 'next/link';
-import { PayPalButton } from "react-paypal-button-v2";
 import Head from 'next/head';
 import PayPal from './PayPal';
 import DonationAmount from './DonationAmount';
