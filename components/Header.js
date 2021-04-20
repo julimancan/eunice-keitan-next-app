@@ -42,7 +42,8 @@ const Header = styled.header`
   z-index: 100;
   button {
     background: black;
-    color: white
+    color: white;
+    margin: 1rem;
   }
   @media (min-width: 900px) {
     padding: 2rem 12% 2rem 10%;
@@ -68,13 +69,16 @@ const Navigation = () => {
   const [selectedNavItem, setSelectedNavItem] = useState("/");
   const [checkout, setCheckout] = useState(false);
   const [donationAmount, setDonationAmount] = useState(10);
-
+  const closeCheckoutAndNav = () => {
+    setNavOpen(false);
+    setCheckout(false);
+  }
   return (
     <Header>
       <Head>
         <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
       </Head>
-      <Menu navOpen={navOpen} setNavOpen={setNavOpen} />
+      <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav}/>
       <Link href="/" onClick={() => setNavOpen(false)}>
         <Logo>
           <h1>Eunice Keitan</h1>

@@ -110,7 +110,7 @@ const NavigationItem = styled.li`
 
 
 
-const Menu = ({ navOpen, setNavOpen }) => {
+const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
 
   return (
     <NavContainer open={navOpen}>
@@ -122,7 +122,7 @@ const Menu = ({ navOpen, setNavOpen }) => {
         {menuItems.map((item) => (
           <NavigationItem key={item.index} open={navOpen} index={item.index}>
             <Link href={item.url}>
-              <h3 onClick={() => setNavOpen(false)}>
+              <h3 onClick={() => closeCheckoutAndNav()}>
                 {item.name}
               </h3>
             </Link>

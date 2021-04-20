@@ -1,4 +1,15 @@
+import styled from '@emotion/styled';
 import React, { useEffect, useRef } from 'react'
+
+const PayPaylContainer = styled.div`
+  /* background: red; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+`;
 
 const PayPal = ({ donationAmount, setOpenPaypal }) => {
   const paypal = useRef();
@@ -22,17 +33,18 @@ const PayPal = ({ donationAmount, setOpenPaypal }) => {
       },
       onApprove: async (data, actions) => {
         const order = await actions.order.capture();
-        console.log("Succesful order: ", order);
+        console.log("Succesful order: ", order, "this is where you should send info to db!");
+        setOpenPaypal(false);
       },
       onError: err => console.log(`err`, err)
     }).render(paypal.current)
   }, [])
 
   return (
-    <div>
+    <PayPaylContainer>
       <div ref={paypal}></div>
       <button onClick={() => setOpenPaypal(false)}>Go Back to change amount</button>
-    </div>
+    </PayPaylContainer>
   )
 };
 
