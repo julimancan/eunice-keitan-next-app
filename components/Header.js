@@ -45,10 +45,25 @@ const Header = styled.header`
     color: white;
     margin: 1rem;
   }
+  .donate-btn {
+    position: absolute;
+    right: 1.5rem;
+    top: 5rem;
+  }
   @media (min-width: 900px) {
     padding: 2rem 12% 2rem 10%;
+    .donate-btn {
+      right: 10%;
+      top: 8rem;
+    }
+    .donation-container {
+      background: red;
+      /* margin-top: 10rem; */
+      position: absolute;
+      left: 0;
+      top: 12rem;
+    }
   }
-
 `;
 
 const Logo = styled.div`
@@ -75,7 +90,7 @@ const Navigation = () => {
   }
 
   const paypalClienId = "Afa6i-QAgOcfDWfCFWHg5maT_58-gGIfsVoJe7BsmGv9bPLv3Ehn5nQ8yCN-NE2nCeKw-Zupq-wEszzO";
-  
+
   return (
     <Header>
       <Head>
@@ -94,7 +109,7 @@ const Navigation = () => {
             // console.log("item", item) 
             return (
               <Link href={item.url} key={item.id}>
-                <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); console.log(selectedNavItem) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
+                <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); setCheckout(false)}} key={item.index} selected={selectedNavItem === item.url ? true : false}>
                   <h3>
                     {item.name}
                   </h3>
@@ -116,17 +131,17 @@ const Navigation = () => {
         </ul>
       </DesktopNav>
       {checkout ? (
-        <>
+        <div className="donation-container">
 
 
           <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} setCheckout={setCheckout}/>
 
 
           {/* <PayPal amount={donationAmount} /> */}
-        </>
+        </div>
 
       ) : (
-        <button onClick={() => setCheckout(true)}>
+        <button className="donate-btn" onClick={() => setCheckout(true)}>
           Donate!
         </button>
       )}
