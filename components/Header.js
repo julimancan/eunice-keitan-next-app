@@ -89,14 +89,14 @@ const Navigation = () => {
     setCheckout(false);
   }
 
-  const paypalClienId = "Afa6i-QAgOcfDWfCFWHg5maT_58-gGIfsVoJe7BsmGv9bPLv3Ehn5nQ8yCN-NE2nCeKw-Zupq-wEszzO";
+  const paypalClientId = "";
 
   return (
     <Header>
       <Head>
-        <script src={`https://www.paypal.com/sdk/js?client-id=${paypalClienId}&currency=CAD`}></script>
+        {/* <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script> */}
       </Head>
-      <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav}/>
+      <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav} />
       <Link href="/" onClick={() => setNavOpen(false)}>
         <Logo>
           <h1>Eunice Keitan</h1>
@@ -109,7 +109,7 @@ const Navigation = () => {
             // console.log("item", item) 
             return (
               <Link href={item.url} key={item.id}>
-                <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); setCheckout(false)}} key={item.index} selected={selectedNavItem === item.url ? true : false}>
+                <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); setCheckout(false) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
                   <h3>
                     {item.name}
                   </h3>
@@ -134,7 +134,7 @@ const Navigation = () => {
         <div className="donation-container">
 
 
-          <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} setCheckout={setCheckout}/>
+          <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} setCheckout={setCheckout} />
 
 
           {/* <PayPal amount={donationAmount} /> */}
@@ -144,9 +144,11 @@ const Navigation = () => {
         // <button className="donate-btn" onClick={() => setCheckout(true)}>
         //   Donate!
         // </button>
-        <Link href="/donate" className="donate-btn">
-          Donate!
-        </Link> 
+        <button className="donate-btn">
+          <Link href="/donate">
+            Donate!
+          </Link>
+        </button>
       )}
     </Header>
   )
