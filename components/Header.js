@@ -94,7 +94,7 @@ const Navigation = () => {
   return (
     <Header>
       <Head>
-        <script src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID.clientId}&currency=CAD`}></script>
+        <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
       </Head>
       <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav} />
       <Link href="/" onClick={() => setNavOpen(false)}>
