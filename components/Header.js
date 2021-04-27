@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import PayPal from './PayPal';
 import DonationAmount from './DonationAmount';
+import { PAYPAL_CLIENT_ID } from '../utils/constants';
 
 const DesktopNav = styled.nav`
   /* background: red; */
@@ -89,12 +90,11 @@ const Navigation = () => {
     setCheckout(false);
   }
 
-  const paypalClientId = "";
 
   return (
     <Header>
       <Head>
-        {/* <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script> */}
+        <script src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID.clientId}&currency=CAD`}></script>
       </Head>
       <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav} />
       <Link href="/" onClick={() => setNavOpen(false)}>
@@ -118,16 +118,7 @@ const Navigation = () => {
 
             )
           })}
-          {/* <PayPalButton 
-              amount="0.01"
-              onSuccess={(details, data) => {
-                console.log(`details`, details)
-                alert("Transaction completed by " + details.payer.name.given_name);
-                
-              }}
-            
-
-            /> */}
+ 
         </ul>
       </DesktopNav>
       {checkout ? (
