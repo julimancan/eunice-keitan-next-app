@@ -105,10 +105,10 @@ const Navigation = () => {
       </Link>
       <DesktopNav>
         <ul>
-          {menuItems.map((item) => {
+          {menuItems.map((item, index) => {
             // console.log("item", item) 
             return (
-              <Link href={item.url} key={item.id}>
+              <Link href={item.url} key={index}>
                 <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); setCheckout(false) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
                   <h3>
                     {item.name}

@@ -120,14 +120,14 @@ export default function YoutubePlaylist({ videos }) {
 
       <ul>
 
-        {videos.items && videos.items.map((item) => {
+        {videos.items && videos.items.map((item, index) => {
           console.log(item)
           const { id, snippet = {} } = item;
           const { title, thumbnails = {}, resourceId, description } = snippet;
           const { medium = {} } = thumbnails;
 
           return (
-            <li key={id} onClick={() => {
+            <li key={index} onClick={() => {
               modalClickHandler();
               setModalInfo({ 
                 title: title,

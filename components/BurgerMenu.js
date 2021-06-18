@@ -119,8 +119,8 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
       </BurgerContainer>
    
       <NavigationList open={navOpen}>
-        {menuItems.map((item) => (
-          <NavigationItem key={item.index} open={navOpen} index={item.index}>
+        {menuItems.map((item, index) => (
+          <NavigationItem key={index} open={navOpen} index={item.index}>
             <Link href={item.url}>
               <h3 onClick={() => closeCheckoutAndNav()}>
                 {item.name}
