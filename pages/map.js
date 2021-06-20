@@ -1,17 +1,31 @@
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import mapboxgl from '!mapbox-gl';
+import ReactDOM from 'react-dom';
+import MapMarker from "../components/MapMarker";
+import 'mapbox-gl/dist/mapbox-gl.css'
+
+
 
 mapboxgl.accessToken = "pk.eyJ1IjoianVsaW1hbiIsImEiOiJja3EydnF0b3YwMTZmMndvenljYTR1bmcyIn0.7iZsib6jwfEnmMPHM66Dxw";
 
-const Map = styled.main`
+// import geoJson from './chicago-parks.geojson';
+
+import parks from "../components/chicago-parks.json"
+
+const MapContainer = styled.main`
+* {
+  /* border: 1px solid black; */
+}
+/* background: red; */
   .map-container {
     height: 400px;
-    width: 100%;
+    width: 80%;
     position: relative;
+    overflow: hidden;
   }
   .sidebar {
-  background-color: rgba(35, 55, 75, 0.9);
+  background-color: purple;
   color: black;
   padding: 6px 12px;
   font-family: monospace;
@@ -23,49 +37,84 @@ const Map = styled.main`
   border-radius: 4px;
 }
 .mapboxgl-control-container {
+  /* display: none; */
+}
+.mapboxgl-marker {
+  width: fit-content;
+.marker-info {
   display: none;
+}
+  &:hover {
+    .marker-info {
+    background: yellow;
+    display: flex;
+    }
+  }
 }
 `;
 
 
 const map = () => {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
+  const mapContainerRef = useRef(null);
+
+  const [lng, setLng] = useState(-87.8781);
+  const [lat, setLat] = useState(41.6298);
   const [zoom, setZoom] = useState(9);
-  const [viewport, setViewport] = useState({
-    latitude: 45.4211,
-    longitude: -75.6903,
-    zoom: 10,
-    width: "500px",
-    height: "500px",
-  });
 
-
+  // initialize map when component mounts
   useEffect(() => {
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+    const newMap = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      // style: "mapbox://styles/juliman/ckq5muqmg6iqk17mnpb1x3df7",
+      style: "mapbox://styles/mapbox/light-v9",
       center: [lng, lat],
       zoom: zoom
     });
-  });
 
-  useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-    map.current.on('move', () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
+  // Render custom marker components
+    parks.features.forEach((feature) => {
+      // create a react ref
+      const ref = createRef();
+      // create a new dom node and save it to the react ref
+      ref.current = document.createElement("div");
+      // render a marker component on our new dom node
+      console.log(`feature`, feature)
+      ReactDOM.render(
+        <MapMarker onClick={markerClicked} feature={feature} >
+
+          <div className="marker-info">
+            {feature.geometry.coordinates[0]},
+            {feature.geometry.coordinates[1]}
+          </div>
+
+        </MapMarker>,
+        ref.current
+      );
+
+      // create a mapbox marker at our new dom node
+      new mapboxgl.Marker(ref.current, )
+        .setLngLat(feature.geometry.coordinates)
+        .addTo(newMap);
     });
-  });
 
+    // add navigation control
+    newMap.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+    newMap.on("move", () => {
+      setLng(newMap.getCenter().lng.toFixed(4));
+      setLat(newMap.getCenter().lat.toFixed(4));
+      setZoom(newMap.getZoom().toFixed(2));
+    });
+
+    // clean up on unmount
+    return () => newMap.remove();
+  }, []);
+
+  const markerClicked = title => window.alert(title);
   return (
-    <Map>
+    <MapContainer>
       MAAAAAAAP!
-      <div ref={mapContainer} className="map-container">
+      <div ref={mapContainerRef} className="map-container">
 
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
@@ -73,7 +122,7 @@ const map = () => {
       </div>
 
 
-    </Map>
+    </MapContainer>
   )
 };
 
