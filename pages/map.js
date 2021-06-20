@@ -57,8 +57,8 @@ const MapContainer = styled.main`
 const map = () => {
   const mapContainerRef = useRef(null);
 
-  const [lng, setLng] = useState(-87.8781);
-  const [lat, setLat] = useState(41.6298);
+  const [lng, setLng] = useState(-87.5781);
+  const [lat, setLat] = useState(41.8998);
   const [zoom, setZoom] = useState(9);
 
   // initialize map when component mounts
@@ -83,8 +83,8 @@ const map = () => {
         <MapMarker onClick={markerClicked} feature={feature} >
 
           <div className="marker-info">
-            {feature.geometry.coordinates[0]},
-            {feature.geometry.coordinates[1]}
+            {feature.properties.title}
+            {/* {feature.properties.description} */}
           </div>
 
         </MapMarker>,
