@@ -1,6 +1,6 @@
 const menuItems = [
   { name: "home", url: "/", index: 0 },
-  { name: "too broke for therapy/videos", url: "/videos", index: 1 },
+  { name: "music/videos", url: "/videos", index: 1 },
   { name: "EPK", url: "/epk", index: 2 },
 ];
 
