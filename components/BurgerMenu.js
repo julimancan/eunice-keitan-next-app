@@ -6,8 +6,8 @@ import { stylingVariables } from './stylingVariables';
 const transitionDuration = ".4s";
 
 const BurgerContainer = styled.div`
-  top: 4rem;
-  right: 2rem;
+  top: 2rem;
+  right: 3rem;
   position: fixed;
   color: white;
   cursor: pointer;
@@ -31,7 +31,7 @@ const Burger = styled.div`
     border-radius: 5px;
     width: ${({ open }) => open ? "40px" : "50px"};
     height: 5px;
-    background: ${stylingVariables.menuTextColor};
+    background: ${stylingVariables.menuBarColor};
     position: absolute;
     transition: background ${transitionDuration}, top ${transitionDuration}, bottom ${transitionDuration} , transform ${transitionDuration}, width ${transitionDuration};  
   }
@@ -43,14 +43,14 @@ const Burger = styled.div`
     bottom: ${({ open }) => open ? "1.5rem" : 0};
     transform: ${({ open }) => open ? "rotate(-45deg) translateY(15px)" : ""}
   }
-  @media (min-width: 900px) {
+  @media (min-width: 1068px) {
     display: none;
   }
 `;
 
 const NavContainer = styled.nav`
   background:${stylingVariables.menuBackgroundColor};
-  opacity: .95;
+  opacity: .85;
   position: fixed;
   width: ${({ open }) => open ? "100vw" : 0};
   height: 100vh;
@@ -87,13 +87,14 @@ const NavigationItem = styled.li`
   animation-delay: calc(${({ index }) => index === 0 ? 1 : index + 1} * 400ms);  
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
-    h3 {
+    h2 {
       display: ${({ open }) => open ? "block" : "none"};
-      color: ${stylingVariables.menuTextColor};
+      color: ${stylingVariables.menuBarColor};
       text-transform: uppercase;
-      font-weight: bold;
+      /* font-weight: bold; */
       margin: 0.3rem;
       cursor: pointer;
+
   }
   @keyframes animateIn {
   0% {
@@ -113,18 +114,18 @@ const NavigationItem = styled.li`
 const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
 
   return (
-    <NavContainer open={navOpen}>
-      <BurgerContainer open={navOpen} >
-        <Burger open={navOpen} onClick={() => setNavOpen(!navOpen)} />
+    <NavContainer open={navOpen} >
+      <BurgerContainer open={navOpen} onClick={() => setNavOpen(!navOpen)} >
+        <Burger open={navOpen}  />
       </BurgerContainer>
    
       <NavigationList open={navOpen}>
-        {menuItems.map((item) => (
-          <NavigationItem key={item.index} open={navOpen} index={item.index}>
+        {menuItems.map((item, index) => (
+          <NavigationItem key={index} open={navOpen} index={item.index}>
             <Link href={item.url}>
-              <h3 onClick={() => closeCheckoutAndNav()}>
+              <h2 onClick={() => closeCheckoutAndNav()}>
                 {item.name}
-              </h3>
+              </h2>
             </Link>
           </NavigationItem>
         ))}

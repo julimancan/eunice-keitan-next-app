@@ -4,10 +4,15 @@ import { stylingVariables } from './stylingVariables';
 
 
 const SocialIconsContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 1rem;
+  transform: translateY(-50%);
   svg {
-    font-size: 3rem;
-    margin: 1rem .5rem;
-    color: ${stylingVariables.menuTextColor}
+    font-size: clamp(2rem, -0.875rem + 5.333vw, 2rem);
+    margin: .5rem 0;
+    color: ${stylingVariables.homePageTextColor};
   }
 `;
 const socialLinkList = {

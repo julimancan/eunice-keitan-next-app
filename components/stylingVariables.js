@@ -1,9 +1,10 @@
 
 export const stylingVariables = {
-  menuBackgroundColor: "#EFEFEF",
-  menuBarColor: "black",
+  menuBackgroundColor: "white",
+  menuBarColor: "#766D64",
   menuTextColor: "black",
   homePageTextColor: "black",
   contactTextColor: "black",
-  menuBottomBorder: "3px solid black"
+  menuBottomBorder: "3px solid black",
+  homePageTextColor: "#997D6A",
 };

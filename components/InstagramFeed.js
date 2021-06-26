@@ -41,13 +41,13 @@ const InstagramFeed = ({ instagramPosts }) => {
         {/* let's iterate through each of the
          instagram posts that were returned
          from the Instagram API*/}
-        {instagramPosts.map(({ node }, i) => {
+        {instagramPosts.map(({ node }, index) => {
           // console.log("node", node)
           return (
             // let's wrap each post in an anchor tag
             // and construct the url for the post using
             // the shortcode that was returned from the API
-            <li   key={i}>
+            <li   key={index}>
               <a
                 href={`https://www.instagram.com/p/${node.shortcode}`}
               
