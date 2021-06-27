@@ -40,8 +40,10 @@ const Header = styled.header`
     opacity: .8;
     position: absolute;
     right: 2.5rem;
-    bottom: 1rem;
+    bottom: .5rem;
     transition: .2s;
+    font-size: clamp(.5rem, -0.875rem + 5.333vw, 1rem);
+
     a {
       font-family: "PrequelDemo";
     }
