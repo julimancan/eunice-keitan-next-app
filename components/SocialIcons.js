@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { FaBandcamp, FaFacebook, FaInstagram, FaSpotify, FaYoutube } from 'react-icons/fa';
 import { stylingVariables } from './stylingVariables';
 
 
 const SocialIconsContainer = styled.div`
-  position: absolute;
+  position: ${({ currentPage }) => currentPage === "/" ? "absolute" : "" };
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ currentPage }) => currentPage === "/" ? "column" : "" };
   right: 1rem;
-  transform: translateY(-50%);
+  transform: ${({ currentPage }) => currentPage === "/" ? "translateY(-50%)" : "" };
+  margin: ${({ currentPage }) => currentPage === "/" ? "" : "2rem 0" };
   svg {
     font-size: clamp(2rem, -0.875rem + 5.333vw, 2rem);
-    margin: .5rem 0;
+    margin: ${({ currentPage }) => currentPage === "/" ? ".5rem 0" : "0 .5rem" };
     color: ${stylingVariables.homePageTextColor};
   }
 `;
@@ -24,8 +26,10 @@ const socialLinkList = {
 }
 
 const SocialIcons = () => {
+  const router = useRouter();
+  const currentPage = router.pathname;
   return (
-    <SocialIconsContainer>
+    <SocialIconsContainer currentPage={currentPage}>
       <a href={socialLinkList.spotify}
         target="_blank"
       >

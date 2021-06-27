@@ -13,8 +13,13 @@ const LayoutWrapper = styled.div`
   font-family: "PrequelDemo";
   src: url("/fonts/PrequelDemo-Regular.ttf");
   font-display: swap;
-  
 }
+@font-face {
+  font-family: "American-Typewriter";
+  src: url("/fonts/American-Typewriter-Regular.ttf");
+  font-display: swap;
+}
+
 h1 {
   font-family: "PrequelDemo";
   font-size: clamp(1rem, -0.875rem + 8.333vw, 3.5rem);
@@ -26,6 +31,11 @@ h2 {
   font-family: "Oceanside-Typewriter";
   font-size: clamp(.7rem, -0.875rem + 5.333vw, 1.5rem);
   color: ${stylingVariables.menuBarColor};
+}
+p {
+  font-family: "American-Typewriter";
+  font-size: clamp(.7rem, -0.875rem + 5.333vw, 1rem);
+  color: ${stylingVariables.menuBarColor}; 
 }
 main {
   padding-top: 12rem;

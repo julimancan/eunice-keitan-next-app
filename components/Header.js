@@ -6,6 +6,8 @@ import Menu from './BurgerMenu';
 import Link from 'next/link';
 import Head from 'next/head';
 import DonationAmount from './DonationAmount';
+import { useRouter } from 'next/router'
+
 
 const DesktopNav = styled.nav`
   /* background: red; */
@@ -26,7 +28,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: none;
+  background: ${({ currentPage }) => currentPage === "/" ? "none" : stylingVariables.videosPageBackground};
   width: 100vw;
   -webkit-box-shadow: 3px 1px 5px 3px #ccc;  
   -moz-box-shadow:    3px 1px 5px 3px #ccc;  
@@ -102,6 +104,11 @@ const Navigation = () => {
   const [selectedNavItem, setSelectedNavItem] = useState("/");
   const [checkout, setCheckout] = useState(false);
   const [donationAmount, setDonationAmount] = useState(10);
+  const router = useRouter();
+  const currentPage = router.pathname;
+
+  console.log(`router`, router)
+
   const closeCheckoutAndNav = () => {
     setNavOpen(false);
     setCheckout(false);
@@ -109,7 +116,7 @@ const Navigation = () => {
 
 
   return (
-    <Header>
+    <Header currentPage={currentPage}>
       <Head>
         <link rel="preload" href="/fonts/Oceanside-Typewriter.ttf" as="font" crossOrigin=""/>
         <link rel="preload" href="/fonts/PrequelDemo-Regular.ttf" as="font" crossOrigin=""/>

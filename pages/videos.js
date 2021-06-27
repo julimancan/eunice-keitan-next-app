@@ -1,42 +1,79 @@
 import styled from '@emotion/styled';
 import SocialIcons from '../components/SocialIcons';
-import YoutubePlaylist from '../components/YoutubePlaylist';
+import Tbft from '../components/Tbft';
+import Bio from '../components/Bio';
 
 
 const YOUTUBE_PLAYLIST_ITEMS_API = "https://www.googleapis.com/youtube/v3/playlistItems";
 const tooBrokePlaylistId = "PLpkedUE5iQ2c-QMpY4hOZnll1yE2hUZLT";
 
 export async function getServerSideProps() {
-  const res = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${tooBrokePlaylistId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
-  const data = await res.json();
+  // fetch too broke for therapy (tbft) youtube playlist
+  const tbftRes = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${tooBrokePlaylistId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
+  const tbftData = await tbftRes.json();
 
   return {
     props: {
-      data
+      tbftData
     }
   }
 }
 
 const VideosPageContainer = styled.main`
+ h2 {
+      position: relative;
+      width: fit-content;
+      &:before {
+        content: "{";
+        left: -.7ch;
+      }
+      &:after {
+        content: "}";
+        right: -.7ch;
+      }
+      &:after, &:before {
+        position: absolute;
+        top: -15%;
+        font-family: "PrequelDemo";
+      }
+    }
+    .youtube-wrapper {
+      height: 30vw;
+      margin: 1rem 0;
+    }
+/* background: red; */
 @media (max-width: 800px) {
   padding: 0 1rem;
 }
 `;
 
 
-const videos = ({ data }) => {
+const videos = ({ tbftData }) => {
   return (
     <VideosPageContainer>
+      <Bio />
       <article>
-        <h2>
-          Too Broke for Therapy
-        </h2>
-        <p>
-          What do you do when you're too broke to afford therapy? You ask a friend how they are keeping their shi...stuff together. When your friends are other artists they can get creative! This series explores the challenges that musicians face in the industry and how it affects their mental health. They share their top tips on how they stay balanced on zero budget in an industry that can easily burn you out and make you feel that big 'D' word. Depressed.
-        </p>
+        <h2>videos</h2>
+        {/* <iframe controls width="250"
+          src="https://www.youtube.com/watch?v=teJlgs1vnw0"
+            // type="iframe/webm" 
+            width="420" height="315"
+
+        /> */}
+        <div className="youtube-wrapper">
+          <iframe width="100%" height="100%"
+            src="https://www.youtube.com/embed/teJlgs1vnw0"
+            title="Standing With You by Eunice Keitan"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+
+        <Tbft tbftData={tbftData} />
+        <SocialIcons />
       </article>
-      <YoutubePlaylist videos={data} />
-      <SocialIcons />
     </VideosPageContainer>
   )
 }

@@ -7,4 +7,5 @@ export const stylingVariables = {
   contactTextColor: "black",
   menuBottomBorder: "3px solid black",
   homePageTextColor: "#997D6A",
+  videosPageBackground: "white"
 };
