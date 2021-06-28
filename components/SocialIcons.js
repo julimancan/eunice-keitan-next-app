@@ -5,6 +5,7 @@ import { stylingVariables } from './stylingVariables';
 
 
 const SocialIconsContainer = styled.div`
+  width: fit-content;
   position: ${({ currentPage }) => currentPage === "/" ? "absolute" : "" };
   display: flex;
   flex-direction: ${({ currentPage }) => currentPage === "/" ? "column" : "" };
@@ -29,7 +30,7 @@ const SocialIcons = () => {
   const router = useRouter();
   const currentPage = router.pathname;
   return (
-    <SocialIconsContainer currentPage={currentPage}>
+    <SocialIconsContainer className="social-icons" currentPage={currentPage}>
       <a href={socialLinkList.spotify}
         target="_blank"
       >

@@ -38,7 +38,7 @@ p {
   color: ${stylingVariables.menuBarColor}; 
 }
 main {
-  padding-top: 12rem;
+  padding-top: 7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,7 +49,8 @@ main {
   article, section {
     width: 100%;
     @media (min-width: 800px) {
-      width: 80%
+      /* width: 80% */
+      padding-top: 4rem;
     }
   }
 }

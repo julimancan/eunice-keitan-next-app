@@ -36,6 +36,7 @@ const Header = styled.header`
   padding: 2rem;
   position: fixed;
   z-index: 100;
+  
   .donate-btn {
     color: ${stylingVariables.homePageTextColor};
     padding: .1rem .5rem;
@@ -107,7 +108,6 @@ const Navigation = () => {
   const router = useRouter();
   const currentPage = router.pathname;
 
-  console.log(`router`, router)
 
   const closeCheckoutAndNav = () => {
     setNavOpen(false);

@@ -4,6 +4,9 @@ import { useState } from "react";
 
 const YoutubeContainer = styled.section`
   /* background: red; */
+  * {
+    /* border: 1px solid; */
+  }
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -17,6 +20,21 @@ const YoutubeContainer = styled.section`
       flex-direction: column;
       align-items: center;
       /* background: red; */
+      .image-wrapper {
+        width: 100%;
+        overflow: hidden;
+        /* 16:9 aspect ratio */
+        padding-top: 56.25%;
+        position: relative;
+        img {
+          border: 0;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+      }
     }
     @media (max-width: 1200px) {
       grid-template-columns: 1fr 1fr;
@@ -29,56 +47,89 @@ const YoutubeContainer = styled.section`
 
 
 const VideoModal = styled.div`
+/* * { border: 1px solid } */
   background: black;
   display: ${({ isModalOpen }) => isModalOpen ? "flex" : "none"};
+  
   position: fixed ;
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
+  
   top: 0rem;
   z-index: 100;
   /* opacity: .8; */
   left: 0;
   align-items: center;
   justify-content: center;
+  padding: 0 2rem 0 1rem ;
   /* overflow-y: scroll; */
-  article {
+  .modal-info {
     
     /* background: red; */
     /* height: 100px; */
     display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    padding: 1rem;
+    /* padding: 1rem; */
     /* background: red; */
-    opacity: 1;
-    overflow: scroll;
-    .video-container {
-      position: relative;
-      overflow: hidden;
-      padding-top: 56.25%;
+    /* opacity: 1; */
+    /* overflow: scroll; */
+    .container-for-container {
+      /* max-height: 100px; */
+      /* background: red; */
       width: 100%;
-      .video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
+      /* overflow: hidden; */
+      /* padding: 0 15rem; */
+      /* max-height: 100px; */
+
+      .video-container {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%;
         width: 100%;
-        border: 0;
+        /* height: 600px; */
+        /* max-width: 600px; */
+        /* max-height: 400px; */
+
+        /* height: 30px; */
+        /* background: red; */
+        .youtube-video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          border: 0;
+          /* max-height: 400px; */
+        }
       }
     }
     section {
       width: 100%;
-      margin-left: 1rem;
+      /* margin-left: 1rem; */
       /* overflow-y: auto;    */
-      h1, p {
+      h3, p {
         color: white;
       }
-      p {
+      h3 {
         /* overflow-wrap: anywhere; */
       }
     }
-    
-    @media (max-width: 800px) {
-      flex-direction: column;
+    @media (min-width: 800px) {
+      .container-for-container {
+        width: 80%
+      }
+    }
+    @media (min-width: 1000px) {
+      flex-direction: row;
+
+      /* .video { */
+        /* position: relative; */
+      .container-for-container  {
+        padding: 2rem;
+      }
+      /* } */
     }
   }
   .close-btn {
@@ -92,6 +143,7 @@ const VideoModal = styled.div`
     cursor: pointer;
     border-radius: 5px;
     border: none;
+    z-index: 110;
     &:after {
       content: "";
       cursor: pointer;
@@ -107,7 +159,7 @@ const VideoModal = styled.div`
 `;
 
 
-export default function YoutubePlaylist({ videos }) {
+export default function YoutubePlaylist({ videos, current }) {
   // console.log(videos)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -133,11 +185,11 @@ export default function YoutubePlaylist({ videos }) {
       <ul>
 
         {videos.items && videos.items.map((item, index) => {
-          console.log(item)
+          {/* console.log(item) */}
           const { id, snippet = {} } = item;
           const { title, thumbnails = {}, resourceId, description } = snippet;
           const { medium = {} } = thumbnails;
-
+          {/* console.log({ medium }) */ }
           return (
             <li key={index} onClick={() => {
               modalClickHandler();
@@ -152,8 +204,12 @@ export default function YoutubePlaylist({ videos }) {
               {/* <a  
                href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
             > */}
-
-              <img width={medium.width} height={medium.height} src={medium.url} alt="" />
+              <div className="image-wrapper">
+                <img
+                  // width={medium.width}
+                  // height={medium.height}
+                  src={medium.url} alt={medium.title} />
+              </div>
               <h3>
                 {title}
               </h3>
@@ -165,17 +221,22 @@ export default function YoutubePlaylist({ videos }) {
       <VideoModal isModalOpen={isModalOpen}>
         <div className="close-btn" onClick={modalClickHandler}></div>
         {modalInfo && (
-          <article>
-            <div className="video-container">
-              <iframe className="video" src={`https://www.youtube.com/embed/${modalInfo.videoId}`}></iframe>
+          <div className="modal-info">
+            <div className="container-for-container">
+
+              <div className="video-container">
+                <iframe className="youtube-video" src={`https://www.youtube.com/embed/${modalInfo.videoId}`}></iframe>
+              </div>
             </div>
             <section>
               {modalInfo.description && console.log("here", getLinksFromDescription(modalInfo.description))}
-              <h1>{modalInfo.title && getArtistName(modalInfo.title)}</h1>
+              <h3>{current = "tbft" ? modalInfo.title && getArtistName(modalInfo.title) : modalInfo.title}</h3>
+              <br />
               <p>{modalInfo.title && getFirstParagraph(modalInfo.description)}</p>
               {/* <p>{modalInfo.description}</p> */}
+              <br />
             </section>
-          </article>
+          </div>
         )}
       </VideoModal>
     </YoutubeContainer>

@@ -6,12 +6,15 @@ const BioContainer = styled.article`
   display: flex;
   position: relative;
   /* margin-bottom: 2rem; */
-  padding: 2rem;
+  /* padding: 2rem; */
+  columns: 2;
+  /* max-height: 300px; */
   .bio {
-    width: 50%;      
+    /* width: 50%;       */
     margin: 0 2rem 0 0 ;
     border-right: 3px solid black;
     padding-right: 2rem;
+    
     h2 {
       position: relative;
       width: fit-content;
@@ -34,20 +37,45 @@ const BioContainer = styled.article`
   .soundCloud {
     /* width: 80%; */
     /* height: 500px; */
+    min-width: 50%;
+    /* min-height: 500px; */
+    /* max-height: 100px; */
     display: flex;
-    align-items: flex-end;
-
+    /* align-items: flex-end; */
+    /* background: red; */
+    .react-player {
+      height: 100%;
+      overflow: hidden;
+      /* overflow: hidden; */
+      padding-top: 56.25%;
+      position: relative;
+      iframe {
+      /* max-height: 500px; */
+      border: 0;
+      /* height: 100%; */
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      }
+    }
   }
   @media (max-width: 950px) {
     flex-direction: column;
+    /* padding: 1rem; */
     .soundCloud {
       /* width: 100%; */
       margin: 1rem 0;
+      /* min-height: 700px; */
+      /* background: red; */
+      
     }
     .bio {
-      width: 100%;
+      /* width: 100%; */
       border-right: none;
-
+      padding-right: 0rem;
+      margin: 0;
+      /* padding: 2rem; */
     }
   }
 `;
@@ -76,7 +104,7 @@ const Bio = () => {
         </span>
       </div>
       <div className="soundCloud">
-        <SoundCloudPlayer />
+        <SoundCloudPlayer  />
       </div>
     </BioContainer>
   )

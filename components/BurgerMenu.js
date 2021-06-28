@@ -94,6 +94,7 @@ const NavigationItem = styled.li`
       /* font-weight: bold; */
       margin: 0.3rem;
       cursor: pointer;
+      font-size: 1.5rem;
 
   }
   @keyframes animateIn {

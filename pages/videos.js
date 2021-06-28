@@ -28,11 +28,14 @@ const VideosPageContainer = styled.main`
 * {
   /* border: 1px solid */
 }
+ padding: 0 .5rem;
+ margin-bottom: 2rem;
  h2 {
       position: relative;
       width: fit-content;
       margin-left: .5ch;
       margin-bottom: .5rem;
+      font-size: 2rem;
       &:before {
         content: "{";
         left: -.7ch;
@@ -48,15 +51,31 @@ const VideosPageContainer = styled.main`
       }
     }
     .youtube-wrapper {
-      height: 30vw;
+      /* height: 30vw; */
       margin: 1rem 0;
+      overflow: hidden;
+      /* 16:9 aspect ratio */
+      padding-top: 56.25%;
+      position: relative;
+      iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
     article {
       margin: 1rem 0;
+      width: 100%;
+    }
+    .social-icons {
+      margin: 0 auto;
     }
 /* background: red; */
-@media (max-width: 800px) {
-  padding: 0 1rem;
+@media (min-width: 800px) {
+  /* padding: 0 1rem; */
 }
 `;
 
@@ -65,15 +84,14 @@ const videos = ({ tbftData, originalsData }) => {
   return (
     <VideosPageContainer>
       <Bio />
-      <article>
-        <h2>videos</h2>
+      {/* <article> */}
         {/* <iframe controls width="250"
           src="https://www.youtube.com/watch?v=teJlgs1vnw0"
             // type="iframe/webm" 
             width="420" height="315"
 
         /> */}
-        <div className="youtube-wrapper">
+        {/* <div className="youtube-wrapper">
           <iframe width="100%" height="100%"
             src="https://www.youtube.com/embed/teJlgs1vnw0"
             title="Standing With You by Eunice Keitan"
@@ -81,12 +99,12 @@ const videos = ({ tbftData, originalsData }) => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-        </div>
+        </div> */}
 
-        <OriginalVideos originalsData={originalsData}/>
-        <Tbft tbftData={tbftData} />
+        <OriginalVideos originalsData={originalsData} current="videos"/>
+        <Tbft tbftData={tbftData} current="tbft"/>
         <SocialIcons />
-      </article>
+      {/* </article> */}
     </VideosPageContainer>
   )
 }
