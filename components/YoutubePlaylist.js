@@ -40,6 +40,7 @@ const VideoModal = styled.div`
   left: 0;
   align-items: center;
   justify-content: center;
+  /* overflow-y: scroll; */
   article {
     
     /* background: red; */
@@ -49,22 +50,33 @@ const VideoModal = styled.div`
     padding: 1rem;
     /* background: red; */
     opacity: 1;
-    overflow: hidden;
+    overflow: scroll;
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      padding-top: 56.25%;
+      width: 100%;
+      .video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border: 0;
+      }
+    }
     section {
-      width: 40%;
+      width: 100%;
       margin-left: 1rem;
-      overflow-y: auto;   
+      /* overflow-y: auto;    */
       h1, p {
         color: white;
       }
       p {
-        overflow-wrap: anywhere;
+        /* overflow-wrap: anywhere; */
       }
     }
-    iframe {
-      align-self: center;
-      
-    }
+    
     @media (max-width: 800px) {
       flex-direction: column;
     }
@@ -98,7 +110,7 @@ const VideoModal = styled.div`
 export default function YoutubePlaylist({ videos }) {
   // console.log(videos)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalInfo, setModalInfo] = useState({ });
+  const [modalInfo, setModalInfo] = useState({});
 
 
   const modalClickHandler = () => {
@@ -109,9 +121,9 @@ export default function YoutubePlaylist({ videos }) {
   };
 
   const getLinksFromDescription = string => string.match(/(\bhttp\S+\b)/ig);
-  
+
   const getArtistName = string => string.split("-")[1];
-  
+
   const getFirstParagraph = string => string.split("**")[0];
 
 
@@ -129,12 +141,12 @@ export default function YoutubePlaylist({ videos }) {
           return (
             <li key={index} onClick={() => {
               modalClickHandler();
-              setModalInfo({ 
+              setModalInfo({
                 title: title,
                 videoId: resourceId.videoId,
                 description: description
               });
-             }
+            }
             }
             >
               {/* <a  
@@ -154,7 +166,9 @@ export default function YoutubePlaylist({ videos }) {
         <div className="close-btn" onClick={modalClickHandler}></div>
         {modalInfo && (
           <article>
-            <iframe width="100%" height="500px"  src={`https://www.youtube.com/embed/${modalInfo.videoId}`}></iframe>
+            <div className="video-container">
+              <iframe className="video" src={`https://www.youtube.com/embed/${modalInfo.videoId}`}></iframe>
+            </div>
             <section>
               {modalInfo.description && console.log("here", getLinksFromDescription(modalInfo.description))}
               <h1>{modalInfo.title && getArtistName(modalInfo.title)}</h1>
