@@ -232,7 +232,7 @@ const WrongPassword = styled.div`
 `;
 
 const epk = () => {
-  const [pageLock, setPageLock] = useState(false);
+  const [pageLock, setPageLock] = useState(true);
   const [password, setPassword] = useState("no password set");
   const [wrongPassword, setWrongPassword] = useState(false);
 
