@@ -113,7 +113,7 @@ const EpkWrap = styled.main`
   }
   .artInfo-press {
     /* background: red; */
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     h4 {
       border-bottom: 5px dotted;

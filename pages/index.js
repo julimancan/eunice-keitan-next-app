@@ -61,7 +61,6 @@ export default function Home({ siteConfig, homepageContent }) {
 
   const { title, subtitle, subtitle2, ctaText, bgVideo } = homepageContent;
 
-  console.log(`bgVideo`, bgVideo)
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
   }, []);
@@ -80,7 +79,9 @@ export default function Home({ siteConfig, homepageContent }) {
       <article>
         <h1>{subtitle}</h1>
         <h2>{subtitle2}</h2>
-        <Button>{ctaText}</Button>
+        {ctaText && (
+          <Button>{ctaText}</Button>
+        )}
       </article>
       <SocialIcons />
     </HomeContainer>
@@ -88,7 +89,7 @@ export default function Home({ siteConfig, homepageContent }) {
 }
 
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const siteConfig = await getSiteSettings();
   const homepageContent = await getHomePageContent();
   return {
