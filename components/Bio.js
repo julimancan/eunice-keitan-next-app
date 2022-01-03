@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import SoundCloudPlayer from "./SoundCloudPlayer"
-import BioTextContent from "./BioTextContent";
+import TextContent from "./TextContent";
 
 
 
@@ -78,7 +78,7 @@ const Bio = ({ bioTitle, bioText, soundcloudTopTracksLink }) => {
         <h2>
           {bioTitle}
         </h2>
-          <BioTextContent
+          <TextContent
             content={bioText}
           />
       </div>

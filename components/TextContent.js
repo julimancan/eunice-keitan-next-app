@@ -11,7 +11,7 @@ const serializers = {
   }
 }
 
-const BioTextContent = ({content}) => {
+const TextContent = ({content}) => {
   return (
     <BlockContent
       serializers={serializers}
@@ -21,4 +21,4 @@ const BioTextContent = ({content}) => {
   )
 }
 
-export default BioTextContent
+export default TextContent

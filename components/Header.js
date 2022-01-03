@@ -41,15 +41,15 @@ const Header = styled.header`
   .donate-btn {
     color: ${({colors}) => colors.homePageTextColor};
     padding: 0 .8rem;
-    opacity: .8;
+    opacity: .7;
     position: absolute;
     right: 2.5rem;
     bottom: .5rem;
     transition: .2s;
-    font-size: clamp(.5rem, -0.875rem + 5.333vw, 1rem);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: clamp(.5rem, -0.875rem + 6.333vw, 1rem);
     span {
       font-family: "PrequelDemo";
     }
@@ -136,10 +136,7 @@ const Navigation = () => {
           <link href={`https://fonts.googleapis.com/css2?family=${siteSettings.paragraphFonts}&display=optional`} rel="stylesheet" />
           <link href={`https://fonts.googleapis.com/css2?family=${siteSettings.subtitleFonts}&display=optional`} rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"/>
-
-
           <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
-
           <title>{siteSettings.title}</title>
           <link rel="shortcut icon" href={siteSettings.favicon && urlFor(siteSettings.favicon).width(10).url()} />
         </Head>
@@ -171,25 +168,14 @@ const Navigation = () => {
       </DesktopNav>
       {checkout ? (
         <div className="donation-container">
-
-
           <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} setCheckout={setCheckout} />
-
-
-          {/* <PayPal amount={donationAmount} /> */}
         </div>
-
       ) : (
-        // <button className="donate-btn" onClick={() => setCheckout(true)}>
-        //   Donate!
-        // </button>
         <button className="donate-btn">
           <Link href="/donate">
-            {/* {siteSettings[0].ctaDonation} */}
             <span>
               {siteSettings.ctaDonation}
             </span>
-
           </Link>
         </button>
       )}

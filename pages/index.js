@@ -4,6 +4,7 @@ import SocialIcons from '../components/SocialIcons';
 import { getHomePageContent, getSiteSettings, urlFor } from '../lib/api';
 import { useGlobalState } from '../state';
 import Head from 'next/head';
+import Button from './../components/Button';
 
 const HomeContainer = styled.main`
 display: flex;
@@ -27,7 +28,7 @@ article {
   h2 {
     font-size: 2.5vw;
   }  
-  button {
+  /* button {
     font-family: "PrequelDemo";
     opacity: .8;
     padding: .5rem 1rem;
@@ -35,10 +36,10 @@ article {
     &:hover {
       border: 2px solid #755B49;
       /* border-radius: 5px; */
-      color: white;
+      /* color: white;
       background: #755B49;
     }
-  }
+  } */ 
 }
 
 
@@ -60,7 +61,7 @@ export default function Home({ siteConfig, homepageContent }) {
 
   const { title, subtitle, subtitle2, ctaText, bgVideo } = homepageContent;
 
-  console.log(`homepageContent`, homepageContent)
+  console.log(`bgVideo`, bgVideo)
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
   }, []);
@@ -71,13 +72,15 @@ export default function Home({ siteConfig, homepageContent }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <HeroImage autoPlay loop muted>
-        <source src="/LYWD-websiteloop.mp4" type="video/mp4" />
+      <HeroImage autoPlay loop muted alt={bgVideo.alt}>
+        <source src={bgVideo.main} type="video/webm" />
+        <source src={bgVideo.fallback} type="video/mp4" />
+        {bgVideo.alt}
       </HeroImage>
       <article>
         <h1>{subtitle}</h1>
         <h2>{subtitle2}</h2>
-        <button>{ctaText}</button>
+        <Button>{ctaText}</Button>
       </article>
       <SocialIcons />
     </HomeContainer>
