@@ -1,45 +1,9 @@
 import styled from '@emotion/styled';
-import InstagramFeed from '../components/InstagramFeed';
+import { useEffect } from 'react';
 import SocialIcons from '../components/SocialIcons';
-import SoundCloudPlayer from '../components/SoundCloudPlayer';
-import { stylingVariables } from '../components/stylingVariables';
-// import Instagram from "instagram-web-api";
-
-
-// export async function getStaticProps(context) {
-//   const client = new Instagram({
-//     username: process.env.IG_USERNAME,
-//     password: process.env.IG_PASSWORD,
-//   });
-
-
-//   let posts = [];
-
-//   let images = [];
-
-//   try {
-//     await client.login()
-//     const instagram = await client.getPhotosByUsername({
-//       username: process.env.IG_USERNAME,
-//     })
-
-//     if (instagram["user"]["edge_owner_to_timeline_media"]["count"] > 0) {
-//       // if we receive timeline data back
-//       //  update the posts to be equal
-//       // to the edges that were returned from the instagram API response
-//       posts = instagram["user"]["edge_owner_to_timeline_media"]["edges"]
-//     }
-//   } catch (err) {
-//     console.log("Something went wrong while logging into Instagram", err)
-//   }
-
-//   return {
-//     props: {
-//       instagramPosts: posts,
-//     }
-//   }
-// }
-
+import { getHomePageContent, getSiteSettings, urlFor } from '../lib/api';
+import { useGlobalState } from '../state';
+import Head from 'next/head';
 
 const HomeContainer = styled.main`
 display: flex;
@@ -54,7 +18,7 @@ article {
   
   * {
     margin: .3rem 0;
-    color: ${stylingVariables.homePageTextColor};
+    color: ${({colors}) => colors.homePageTextColor};
   }
   h1 {
     position: relative;
@@ -90,22 +54,44 @@ const HeroImage = styled.video`
 `;
 
 
-export default function Home({ instagramPosts }) {
-  // console.log(`instagramPosts`, instagramPosts)
-  // const posts = instagramPosts;
+export default function Home({ siteConfig, homepageContent }) {
+  const setSiteSettings = useGlobalState("siteSettings")[1];
+  const [colors] = useGlobalState("colors");
+
+  const { title, subtitle, subtitle2, ctaText, bgVideo } = homepageContent;
+
+  console.log(`homepageContent`, homepageContent)
+  useEffect(() => {
+    setSiteSettings(siteConfig[0]);
+  }, []);
+
+
   return (
-    <HomeContainer>
+    <HomeContainer colors={colors}>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <HeroImage autoPlay loop muted>
         <source src="/LYWD-websiteloop.mp4" type="video/mp4" />
       </HeroImage>
       <article>
-
-        <h1>New Single</h1>
-        <h2>July23rd</h2>
-        <button>PRE-SAVE NOW</button>
-
+        <h1>{subtitle}</h1>
+        <h2>{subtitle2}</h2>
+        <button>{ctaText}</button>
       </article>
       <SocialIcons />
     </HomeContainer>
   )
+}
+
+
+export async function getStaticProps(context) {
+  const siteConfig = await getSiteSettings();
+  const homepageContent = await getHomePageContent();
+  return {
+    props: {
+      siteConfig,
+      homepageContent
+    }
+  }
 }

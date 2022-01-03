@@ -1,64 +1,67 @@
 import styled from "@emotion/styled";
+import { useGlobalState } from "../state";
 import Header from "./Header";
-import { stylingVariables } from "./stylingVariables";
 
 const LayoutWrapper = styled.div`
 
-@font-face {
-  font-family: "Oceanside-Typewriter";
-  src: url("/fonts/Oceanside-Typewriter.ttf");
-  font-display: swap;
-}
-@font-face {
-  font-family: "PrequelDemo";
-  src: url("/fonts/PrequelDemo-Regular.ttf");
-  font-display: swap;
-}
-@font-face {
-  font-family: "American-Typewriter";
-  src: url("/fonts/American-Typewriter-Regular.ttf");
-  font-display: swap;
-}
+  @font-face {
+    font-family: "Oceanside-Typewriter";
+    src: url("/fonts/Oceanside-Typewriter.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "PrequelDemo";
+    src: url("/fonts/PrequelDemo-Regular.ttf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "American-Typewriter";
+    src: url("/fonts/American-Typewriter-Regular.ttf");
+    font-display: swap;
+  }
 
-h1 {
-  font-family: "PrequelDemo";
-  font-size: clamp(1rem, -0.875rem + 8.333vw, 3.5rem);
-  font-weight: 400;
-  color: ${stylingVariables.menuBarColor};
-  white-space: nowrap;
-}
-h2 {
-  font-family: "Oceanside-Typewriter";
-  font-size: clamp(.7rem, -0.875rem + 5.333vw, 1.5rem);
-  color: ${stylingVariables.menuBarColor};
-}
-p {
-  font-family: "American-Typewriter";
-  font-size: clamp(.7rem, -0.875rem + 5.333vw, 1rem);
-  color: ${stylingVariables.menuBarColor}; 
-}
-main {
-  padding-top: 7rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  /* background: red; */
-  /* margin-bottom: 3rem; */
-  article, section {
+  h1 {
+    font-family: ${({headingFonts}) => headingFonts || "PrequelDemo"};
+    font-size: clamp(1rem, -0.875rem + 8.333vw, 3.5rem);
+    font-weight: 400;
+    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
+    white-space: nowrap;
+  }
+  h2 {
+    font-family: ${({subtitleFonts}) => subtitleFonts || "Oceanside-Typewriter"};
+    font-size: clamp(.7rem, -0.875rem + 5.333vw, 1.5rem);
+    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
+  }
+  p {
+    font-family: ${({paragraphFonts}) => paragraphFonts || "American-Typewriter"};
+    font-size: clamp(.7rem, -0.875rem + 5.333vw, 1rem);
+    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor}; 
+  }
+  main {
+    padding-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    @media (min-width: 800px) {
-      /* width: 80% */
-      padding-top: 4rem;
+    min-height: 100vh;
+    article, section {
+      width: 100%;
+      @media (min-width: 800px) {
+        padding-top: 4rem;
+      }
     }
   }
-}
   `;
 
 const Layout = ({ children }) => {
+  const [siteSettings] = useGlobalState("siteSettings");
+  const [colors] = useGlobalState("colors");
+  const { headingFonts, menuFont, paragraphFonts, subtitleFonts } = siteSettings;
+  console.log(siteSettings)
   return (
-    <LayoutWrapper>
+    <LayoutWrapper colors={colors} 
+      headingFonts={headingFonts} menuFont={menuFont} paragraphFonts={paragraphFonts} subtitleFonts={subtitleFonts} siteSettings={siteSettings}
+    >
       <Header />
       { children}
     </LayoutWrapper>

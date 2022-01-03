@@ -3,31 +3,35 @@ import SocialIcons from '../components/SocialIcons';
 import Tbft from '../components/Tbft';
 import Bio from '../components/Bio';
 import OriginalVideos from '../components/OriginalVideos';
+import { getSiteSettings, getVideosPageContent } from '../lib/api';
+import { useGlobalState } from '../state';
+import { useEffect } from 'react';
 
 
 const YOUTUBE_PLAYLIST_ITEMS_API = "https://www.googleapis.com/youtube/v3/playlistItems";
-const tooBrokePlaylistId = "PLpkedUE5iQ2c-QMpY4hOZnll1yE2hUZLT";
 const originalsListId = "PLpkedUE5iQ2dahlWY_NcihoalzwU0Z7QE"
 
 export async function getServerSideProps() {
+
+  const videosPageContent = await getVideosPageContent();
   // fetch too broke for therapy (tbft) youtube playlist
-  const tbftRes = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${tooBrokePlaylistId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
+  const tbftRes = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${videosPageContent.youtubeTooBroke.youtubePlaylist}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
   const tbftData = await tbftRes.json();
-  const originalsRes = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${originalsListId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
+  const originalsRes = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet&playlistId=${videosPageContent.youtubeOriginals.youtubePlaylist}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`);
   const originalsData = await originalsRes.json();
+  const siteConfig = await getSiteSettings();
 
   return {
     props: {
       tbftData,
-      originalsData
+      originalsData,
+      siteConfig,
+      videosPageContent
     }
   }
 }
 
 const VideosPageContainer = styled.main`
-* {
-  /* border: 1px solid */
-}
  padding: 0 .5rem;
  margin-bottom: 2rem;
  h2 {
@@ -73,38 +77,25 @@ const VideosPageContainer = styled.main`
     .social-icons {
       margin: 0 auto;
     }
-/* background: red; */
-@media (min-width: 800px) {
-  /* padding: 0 1rem; */
-}
 `;
 
 
-const videos = ({ tbftData, originalsData }) => {
+const videos = ({ tbftData, originalsData, siteConfig, videosPageContent }) => {
+  const [siteSettings, setSiteSettings] = useGlobalState("siteSettings");
+  
+  useEffect(() => {
+    setSiteSettings(siteConfig[0]);
+  }, []);
+  
+  const { soundcloudTopTracksLink } = videosPageContent;
+  const { bioTitle, bioText } = siteSettings;
+
   return (
     <VideosPageContainer>
-      <Bio />
-      {/* <article> */}
-        {/* <iframe controls width="250"
-          src="https://www.youtube.com/watch?v=teJlgs1vnw0"
-            // type="iframe/webm" 
-            width="420" height="315"
-
-        /> */}
-        {/* <div className="youtube-wrapper">
-          <iframe width="100%" height="100%"
-            src="https://www.youtube.com/embed/teJlgs1vnw0"
-            title="Standing With You by Eunice Keitan"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div> */}
-
-        <OriginalVideos originalsData={originalsData} current="videos"/>
-        <Tbft tbftData={tbftData} current="tbft"/>
-        <SocialIcons />
-      {/* </article> */}
+      <Bio bioTitle={bioTitle} bioText={bioText} soundcloudTopTracksLink={soundcloudTopTracksLink} />
+      <OriginalVideos originalsData={originalsData} current="videos" />
+      <Tbft tbftData={tbftData} current="tbft" />
+      <SocialIcons />
     </VideosPageContainer>
   )
 }
