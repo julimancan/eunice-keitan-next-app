@@ -1,35 +1,28 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react'
+import { useGlobalState } from '../state';
 import PayPal from './PayPal'
-import { stylingVariables } from './stylingVariables';
 
 const DonationContainer = styled.div`
-  /* position: absolute; */
-  background: ${stylingVariables.menuBackgroundColor};
-  /* min-height: 80vh; */
-  /* width: 100vw; */
-  /* top: 0; */
-  /* left: 0; */
+  background: ${({colors, siteSettings}) => siteSettings.menuBgColor || colors.menuBackgroundColor};
   section {
-  /* background: red; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* height: 100% */
-    
   }
 `;
 
 
 const DonationAmount = ({ donationAmount, setDonationAmount, setCheckout }) => {
+  const [colors] = useGlobalState("colors")
+  const [siteSettings] = useGlobalState("siteSettings")
   const [openPaypal, setOpenPaypal] = useState(false);
   const inputHandler = (event) => {
     setDonationAmount(event.target.value);
-    console.log(`donationAmount`, donationAmount)
   }
   return (
-    <DonationContainer>
+    <DonationContainer colors={colors} siteSettings={siteSettings}>
       {openPaypal ? (
 
         <PayPal donationAmount={donationAmount} setOpenPaypal={setOpenPaypal}/>

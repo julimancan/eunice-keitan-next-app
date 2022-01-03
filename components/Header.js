@@ -1,12 +1,13 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
 import menuItems from './menuItems';
-import { stylingVariables } from './stylingVariables';
 import Menu from './BurgerMenu';
 import Link from 'next/link';
 import Head from 'next/head';
 import DonationAmount from './DonationAmount';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import { useGlobalState } from '../state';
+import { urlFor } from '../lib/api';
 
 
 const DesktopNav = styled.nav`
@@ -28,7 +29,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${({ currentPage }) => currentPage === "/" ? "none" : stylingVariables.videosPageBackground};
+  background: ${({ currentPage, colors }) => currentPage === "/" ? "none" : colors.videosPageBackground};
   width: 100vw;
   -webkit-box-shadow: 3px 1px 5px 3px #ccc;  
   -moz-box-shadow:    3px 1px 5px 3px #ccc;  
@@ -38,16 +39,18 @@ const Header = styled.header`
   z-index: 100;
   
   .donate-btn {
-    color: ${stylingVariables.homePageTextColor};
-    padding: .1rem .5rem;
-    opacity: .8;
+    color: ${({colors}) => colors.homePageTextColor};
+    padding: 0 .8rem;
+    opacity: .7;
     position: absolute;
     right: 2.5rem;
     bottom: .5rem;
     transition: .2s;
-    font-size: clamp(.5rem, -0.875rem + 5.333vw, 1rem);
-
-    a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(.5rem, -0.875rem + 6.333vw, 1rem);
+    span {
       font-family: "PrequelDemo";
     }
     &:hover {
@@ -55,6 +58,7 @@ const Header = styled.header`
       /* border-radius: 5px; */
       color: white;
       background: #755B49;
+      cursor: pointer;
     }
   }
   @media (min-width: 600px) {
@@ -92,15 +96,18 @@ const DesktopNavItem = styled.li`
   h2 {
     font-size: 1.4rem;
     font-weight: 600;
-    color: ${({ selected }) => !selected ? stylingVariables.menuBarColor : stylingVariables.homePageTextColor};
+    color: ${({ selected, colors, siteSettings }) => !selected ? siteSettings.menuTextColor || colors.menuBarColor : colors.homePageTextColor};
     &:hover {
-      color: ${stylingVariables.homePageTextColor};
+      color: ${({colors}) => colors.homePageTextColor};
     }
   }
   transition: font-size .2s;
 `;
 
 const Navigation = () => {
+  const [siteSettings] = useGlobalState("siteSettings");
+  const [colors] = useGlobalState("colors");
+
   const [navOpen, setNavOpen] = useState(false);
   const [selectedNavItem, setSelectedNavItem] = useState("/");
   const [checkout, setCheckout] = useState(false);
@@ -113,22 +120,32 @@ const Navigation = () => {
     setNavOpen(false);
     setCheckout(false);
   }
+  // if (siteSettings[0]) 
 
 
   return (
-    <Header currentPage={currentPage}>
-      <Head>
-        <link rel="preload" href="/fonts/Oceanside-Typewriter.ttf" as="font" crossOrigin=""/>
-        <link rel="preload" href="/fonts/PrequelDemo-Regular.ttf" as="font" crossOrigin=""/>
-        <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
-        <link rel="shortcut icon" href="/EuniceKeitan-LYWD.ico" />
-        <title>Eunice Keitan</title>
-      </Head>
+    <Header currentPage={currentPage} colors={colors}>
+      {/* {siteSettings[0].headingFonts && ( */}
+        <Head>
+          <link rel="preload" href="/fonts/Oceanside-Typewriter.ttf" as="font" crossOrigin=""/>
+          <link rel="preload" href="/fonts/PrequelDemo-Regular.ttf" as="font" crossOrigin=""/>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href={`https://fonts.googleapis.com/css2?family=${siteSettings.headingFonts || ""}&display=optional`} rel="stylesheet" />
+          <link href={`https://fonts.googleapis.com/css2?family=${siteSettings.menuFont}&display=optional`} rel="stylesheet" />
+          <link href={`https://fonts.googleapis.com/css2?family=${siteSettings.paragraphFonts}&display=optional`} rel="stylesheet" />
+          <link href={`https://fonts.googleapis.com/css2?family=${siteSettings.subtitleFonts}&display=optional`} rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"/>
+          <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
+          <title>{siteSettings.title}</title>
+          <link rel="shortcut icon" href={siteSettings.favicon && urlFor(siteSettings.favicon).width(10).url()} />
+        </Head>
+      {/* )} */}
       <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav} />
       <Link href="/" onClick={() => setNavOpen(false)}>
         <Logo>
-          <h1>Eunice Keitan</h1>
-          <h2>Musician | Singer-Songwriter</h2>
+          <h1>{siteSettings.title}</h1>
+          <h2>{siteSettings.description}</h2>
         </Logo>
       </Link>
       <DesktopNav>
@@ -137,7 +154,7 @@ const Navigation = () => {
             // console.log("item", item) 
             return (
               <Link href={item.url} key={index}>
-                <DesktopNavItem onClick={() => { setSelectedNavItem(item.url); setCheckout(false) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
+                <DesktopNavItem colors={colors} siteSettings={siteSettings} onClick={() => { setSelectedNavItem(item.url); setCheckout(false) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
                   <h2>
                     {item.name}
                   </h2>
@@ -146,26 +163,19 @@ const Navigation = () => {
 
             )
           })}
- 
+
         </ul>
       </DesktopNav>
       {checkout ? (
         <div className="donation-container">
-
-
           <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} setCheckout={setCheckout} />
-
-
-          {/* <PayPal amount={donationAmount} /> */}
         </div>
-
       ) : (
-        // <button className="donate-btn" onClick={() => setCheckout(true)}>
-        //   Donate!
-        // </button>
         <button className="donate-btn">
           <Link href="/donate">
-            Donate
+            <span>
+              {siteSettings.ctaDonation}
+            </span>
           </Link>
         </button>
       )}
