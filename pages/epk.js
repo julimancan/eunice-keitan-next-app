@@ -6,7 +6,6 @@ import TextContent from "../components/TextContent";
 import { getEpkPageContent, getSiteSettings } from "../lib/api";
 import { useGlobalState } from "../state";
 
-
 const epkImages = [
   {
     name: "Eunice Keitan Lay Your Weapons Down image 1",
@@ -29,28 +28,31 @@ const epkImages = [
 const EpkWrap = styled.main`
   position: relative;
   margin-bottom: 2rem;
-  /* height: 80vh; */
-  /* max-height: 50vh; */
   color: black;
+  padding: 0 2rem;
+  * {
+    /* border: 1px solid black; */
+  }
   h1 {
     color: inherit;
-    font-size: clamp(1rem, -0.875rem + 8.333vw, 1.8rem);
   }
   h2 {
     color: inherit;
   }
-  h3,
-  h4 {
-    font-style: italic;
-    font-weight: 600;
-    font-size: 2rem;
+  h3 {
+    color: black;
   }
   h4 {
+    font-style: italic;
     font-weight: 400;
     font-size: 1.6rem;
   }
   p {
     color: black;
+    line-height: 24px;
+  }
+  strong {
+    font-family: "Oceanside-Typewriter";
   }
   .song-name {
     font-style: normal;
@@ -67,8 +69,16 @@ const EpkWrap = styled.main`
 
   .top-article {
     /* background: red; */
-    .soundcloud-notes {
+
+    .release-date {
       /* background: yellow; */
+      font-size: 1rem;
+      color: black;
+      margin: 0.2rem;
+    }
+
+    .soundcloud-notes {
+      margin: 1rem 0;
       display: flex;
       flex-direction: column;
       padding-top: 0;
@@ -84,8 +94,9 @@ const EpkWrap = styled.main`
         display: flex;
         flex-direction: column;
         /* padding: 0 1rem; */
-        p{
-          margin: .2rem 0;
+
+        p {
+          margin: 0.2rem 0;
         }
         .song-desc {
           margin: 1rem 0;
@@ -93,7 +104,6 @@ const EpkWrap = styled.main`
       }
     }
     .video-notes {
-      /* background: red; */
       margin: 1rem 0;
       display: flex;
       flex-direction: column;
@@ -102,19 +112,34 @@ const EpkWrap = styled.main`
         align-self: flex-start;
       }
       p {
-        margin: 1rem 0;
+        margin-bottom: 1rem;
       }
       iframe {
         aspect-ratio: 16/9;
-        max-height: 400px;
-        max-width: 800px;
+        width: 100%;
       }
     }
   }
   .artInfo-press {
-    /* background: red; */
-    /* display: flex; */
+    display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
+    div {
+      min-width: 400px;
+      div {
+        width: 100%;
+        p {
+          margin: 0.2rem auto;
+        }
+      }
+      ul {
+        margin: 1rem 0; 
+        li {
+          font-family: "American-Typewriter";
+          line-height: 24px;
+        }
+      }
+    }
     h4 {
       border-bottom: 5px dotted;
     }
@@ -129,8 +154,15 @@ const EpkWrap = styled.main`
     object-fit: cover;
   }
   .bio-text {
+    margin-bottom: 2rem;
     p {
       margin: 1.5rem 0;
+    }
+  }
+  .lyrics-section {
+    h5 {
+      margin-top: 1rem;
+      text-transform: uppercase;
     }
   }
   @media (min-width: 440px) {
@@ -156,8 +188,6 @@ const EpkWrap = styled.main`
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      /* align-items: flex-start; */
-      /* background: red; */
       padding-top: 0;
       h3 {
         justify-self: flex-start;
@@ -248,7 +278,7 @@ export async function getServerSideProps() {
   return {
     props: {
       siteConfig,
-      epkPageContent
+      epkPageContent,
     },
   };
 }
@@ -338,10 +368,10 @@ const epk = ({ siteConfig, epkPageContent }) => {
       {!pageLock && (
         <section>
           <article className="top-article">
-            <h1>
+            <h2>
               {title} {`(${releaseType})`}
-            </h1>
-            <h2>Release Date: {releaseDate}</h2>
+            </h2>
+            <h3 className="release-date">Release Date: {releaseDate}</h3>
             <section className="soundcloud-notes">
               <div className="iframe-wrapper">
                 <iframe
@@ -353,14 +383,15 @@ const epk = ({ siteConfig, epkPageContent }) => {
                 ></iframe>
               </div>
               <div className="notes">
-                <h3>{releaseNotesTitle}</h3>
-                <h3 className="song-name">{title}</h3>
-                <TextContent content={releaseNotes}/>
+                <h3>
+                  {releaseNotesTitle} {title}
+                </h3>
+                <TextContent content={releaseNotes} />
               </div>
             </section>
             <section className="video-notes">
               <h3>{otherNotestitle}</h3>
-              <TextContent content={otherNotes}/>
+              <TextContent content={otherNotes} />
               <iframe
                 frameBorder="0"
                 allowFullscreen="1"
@@ -375,13 +406,12 @@ const epk = ({ siteConfig, epkPageContent }) => {
           </article>
           <article className="artInfo-press">
             <div>
-              <h4>Artist Information:</h4>
-              <TextContent content={artistInfo}/>
+              <h3>Artist Information:</h3>
+              <TextContent content={artistInfo} />
             </div>
             <div>
-              <h4>Recent Press:</h4>
-              <TextContent content={recentPress}/>
-              
+              <h3>Recent Press:</h3>
+              <TextContent content={recentPress} />
             </div>
           </article>
           <SocialIcons />
@@ -411,8 +441,8 @@ const epk = ({ siteConfig, epkPageContent }) => {
               </div>
             ))}
           </article>
-          <article>
-            <TextContent content={lyrics}/>
+          <article className="lyrics-section">
+            <TextContent content={lyrics} />
           </article>
         </section>
       )}

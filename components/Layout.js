@@ -28,14 +28,22 @@ const LayoutWrapper = styled.div`
     white-space: nowrap;
   }
   h2 {
-    font-family: ${({subtitleFonts}) => subtitleFonts || "Oceanside-Typewriter"};
+    font-family: ${({subtitleFonts}) => subtitleFonts || "PrequelDemo"};
     font-size: clamp(.7rem, -0.875rem + 5.333vw, 1.5rem);
     color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
   }
+  h3 {
+    font-family: ${({subtitleFonts}) => subtitleFonts || "Oceanside-Typewriter"};
+    font-size: 1.5rem;
+    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
+    margin: 1rem 0;
+  }
+
   p {
     font-family: ${({paragraphFonts}) => paragraphFonts || "American-Typewriter"};
     font-size: clamp(.7rem, -0.875rem + 5.333vw, 1rem);
     color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor}; 
+    min-height: .5rem;
   }
   main {
     padding-top: 10rem;
@@ -44,6 +52,8 @@ const LayoutWrapper = styled.div`
     align-items: center;
     width: 100%;
     min-height: 100vh;
+    max-width: 1500px;
+    margin: 0 auto;
     article, section {
       width: 100%;
       @media (min-width: 800px) {

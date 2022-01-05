@@ -33,6 +33,7 @@ const BioContainer = styled.article`
 
   }
   .soundCloud {
+    margin-top: 3rem;
     min-width: 50%;
     display: flex;
     .react-player {
@@ -56,7 +57,7 @@ const BioContainer = styled.article`
     flex-direction: column;
     /* padding: 1rem; */
     .soundCloud {
-      margin: 1rem 0;
+      /* margin: 1rem 0; */
       
     }
     .bio {

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 
-
 const YoutubeContainer = styled.section`
   /* background: red; */
   * {
@@ -18,8 +17,12 @@ const YoutubeContainer = styled.section`
       width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      margin-bottom: 2rem;
+      /* align-items: center; */
       /* background: red; */
+      h3 {
+        font-size: 1rem;
+      }
       .image-wrapper {
         width: 100%;
         overflow: hidden;
@@ -36,6 +39,7 @@ const YoutubeContainer = styled.section`
         }
       }
     }
+
     @media (max-width: 1200px) {
       grid-template-columns: 1fr 1fr;
     }
@@ -45,26 +49,24 @@ const YoutubeContainer = styled.section`
   }
 `;
 
-
 const VideoModal = styled.div`
-/* * { border: 1px solid } */
+  /* * { border: 1px solid } */
   background: black;
-  display: ${({ isModalOpen }) => isModalOpen ? "flex" : "none"};
-  
-  position: fixed ;
+  display: ${({ isModalOpen }) => (isModalOpen ? "flex" : "none")};
+
+  position: fixed;
   height: 100vh;
   width: 100vw;
-  
+
   top: 0rem;
   z-index: 100;
   /* opacity: .8; */
   left: 0;
   align-items: center;
   justify-content: center;
-  padding: 0 2rem 0 1rem ;
+  padding: 0 2rem 0 1rem;
   /* overflow-y: scroll; */
   .modal-info {
-    
     /* background: red; */
     /* height: 100px; */
     display: flex;
@@ -107,26 +109,22 @@ const VideoModal = styled.div`
     }
     section {
       width: 100%;
-      /* margin-left: 1rem; */
-      /* overflow-y: auto;    */
-      h3, p {
+      h4,
+      p {
         color: white;
-      }
-      h3 {
-        /* overflow-wrap: anywhere; */
       }
     }
     @media (min-width: 800px) {
       .container-for-container {
-        width: 80%
+        width: 80%;
       }
     }
     @media (min-width: 1000px) {
       flex-direction: row;
 
       /* .video { */
-        /* position: relative; */
-      .container-for-container  {
+      /* position: relative; */
+      .container-for-container {
         padding: 2rem;
       }
       /* } */
@@ -139,7 +137,7 @@ const VideoModal = styled.div`
     position: absolute;
     right: 2rem;
     top: 2rem;
-    transform: rotate(-45deg) ;
+    transform: rotate(-45deg);
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -158,81 +156,91 @@ const VideoModal = styled.div`
   }
 `;
 
-
 export default function YoutubePlaylist({ videos, current }) {
   // console.log(videos)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
-
   const modalClickHandler = () => {
-    setIsModalOpen(!isModalOpen)
+    setIsModalOpen(!isModalOpen);
     if (modalInfo) {
-      setModalInfo({})
+      setModalInfo({});
     }
   };
 
-  const getLinksFromDescription = string => string.match(/(\bhttp\S+\b)/ig);
+  const getLinksFromDescription = (string) => string.match(/(\bhttp\S+\b)/gi);
 
-  const getArtistName = string => string.split("-")[1];
+  const getArtistName = (string) => string.split("-")[1];
 
-  const getFirstParagraph = string => string.split("**")[0];
-
+  const getFirstParagraph = (string) => string.split("**")[0];
 
   return (
     <YoutubeContainer>
-
       <ul>
-
-        {videos.items && videos.items.map((item, index) => {
-          {/* console.log(item) */}
-          const { id, snippet = {} } = item;
-          const { title, thumbnails = {}, resourceId, description } = snippet;
-          const { medium = {} } = thumbnails;
-          {/* console.log({ medium }) */ }
-          return (
-            <li key={index} onClick={() => {
-              modalClickHandler();
-              setModalInfo({
-                title: title,
-                videoId: resourceId.videoId,
-                description: description
-              });
+        {videos.items &&
+          videos.items.map((item, index) => {
+            {
+              /* console.log(item) */
             }
+            const { id, snippet = {} } = item;
+            const { title, thumbnails = {}, resourceId, description } = snippet;
+            const { medium = {} } = thumbnails;
+            {
+              /* console.log({ medium }) */
             }
-            >
-              {/* <a  
+            return (
+              <li
+                key={index}
+                onClick={() => {
+                  modalClickHandler();
+                  setModalInfo({
+                    title: title,
+                    videoId: resourceId.videoId,
+                    description: description,
+                  });
+                }}
+              >
+                {/* <a  
                href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
             > */}
-              <div className="image-wrapper">
-                <img
-                  // width={medium.width}
-                  // height={medium.height}
-                  src={medium.url} alt={medium.title} />
-              </div>
-              <h3>
-                {title}
-              </h3>
-              {/* </a> */}
-            </li>
-          )
-        })}
+                <h3>{title}</h3>
+                <div className="image-wrapper">
+                  <img
+                    // width={medium.width}
+                    // height={medium.height}
+                    src={medium.url}
+                    alt={medium.title}
+                  />
+                </div>
+                {/* </a> */}
+              </li>
+            );
+          })}
       </ul>
       <VideoModal isModalOpen={isModalOpen}>
         <div className="close-btn" onClick={modalClickHandler}></div>
         {modalInfo && (
           <div className="modal-info">
             <div className="container-for-container">
-
               <div className="video-container">
-                <iframe className="youtube-video" src={`https://www.youtube.com/embed/${modalInfo.videoId}`}></iframe>
+                <iframe
+                  className="youtube-video"
+                  src={`https://www.youtube.com/embed/${modalInfo.videoId}`}
+                ></iframe>
               </div>
             </div>
             <section>
-              {modalInfo.description && console.log("here", getLinksFromDescription(modalInfo.description))}
-              <h3>{current = "tbft" ? modalInfo.title && getArtistName(modalInfo.title) : modalInfo.title}</h3>
+              <h4>
+                {
+                  (current = "tbft"
+                    ? modalInfo.title && getArtistName(modalInfo.title)
+                    : modalInfo.title)
+                }
+              </h4>
               <br />
-              <p>{modalInfo.title && getFirstParagraph(modalInfo.description)}</p>
+              <p>
+                {modalInfo.title && getFirstParagraph(modalInfo.description)}
+              </p>
               {/* <p>{modalInfo.description}</p> */}
               <br />
             </section>
@@ -240,6 +248,5 @@ export default function YoutubePlaylist({ videos, current }) {
         )}
       </VideoModal>
     </YoutubeContainer>
-  )
+  );
 }
-
