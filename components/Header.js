@@ -124,8 +124,7 @@ const Navigation = () => {
 
 
   return (
-    <Head er currentPage={currentPage} colors={colors}>
-      {/* {siteSettings[0].headingFonts && ( */}
+    <Header currentPage={currentPage} colors={colors}>
         <Head>
           <link rel="preload" href="/fonts/Oceanside-Typewriter.ttf" as="font" crossOrigin=""/>
           <link rel="preload" href="/fonts/PrequelDemo-Regular.ttf" as="font" crossOrigin=""/>
@@ -141,7 +140,6 @@ const Navigation = () => {
           <link rel="shortcut icon" href={siteSettings.favicon && urlFor(siteSettings.favicon).width(10).url()} />
           <script async defer data-website-id="4f284092-ca72-4596-aaf3-3b075a73abf1" src="https://analytics-julimancan.vercel.app/umami.js"></script>
         </Head>
-      {/* )} */}
       <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav} />
       <Link href="/" onClick={() => setNavOpen(false)}>
         <Logo>
@@ -152,7 +150,6 @@ const Navigation = () => {
       <DesktopNav>
         <ul>
           {menuItems.map((item, index) => {
-            // console.log("item", item) 
             return (
               <Link href={item.url} key={index}>
                 <DesktopNavItem colors={colors} siteSettings={siteSettings} onClick={() => { setSelectedNavItem(item.url); setCheckout(false) }} key={item.index} selected={selectedNavItem === item.url ? true : false}>
