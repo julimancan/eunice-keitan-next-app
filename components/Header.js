@@ -124,7 +124,7 @@ const Navigation = () => {
 
 
   return (
-    <Header currentPage={currentPage} colors={colors}>
+    <Head er currentPage={currentPage} colors={colors}>
       {/* {siteSettings[0].headingFonts && ( */}
         <Head>
           <link rel="preload" href="/fonts/Oceanside-Typewriter.ttf" as="font" crossOrigin=""/>
@@ -139,6 +139,7 @@ const Navigation = () => {
           <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}></script>
           <title>{siteSettings.title}</title>
           <link rel="shortcut icon" href={siteSettings.favicon && urlFor(siteSettings.favicon).width(10).url()} />
+          <script async defer data-website-id="4f284092-ca72-4596-aaf3-3b075a73abf1" src="https://analytics-julimancan.vercel.app/umami.js"></script>
         </Head>
       {/* )} */}
       <Menu navOpen={navOpen} setNavOpen={setNavOpen} closeCheckoutAndNav={closeCheckoutAndNav} />
