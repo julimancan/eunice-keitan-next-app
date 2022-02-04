@@ -15,7 +15,7 @@ const SocialIconsContainer = styled.div`
   svg {
     font-size: clamp(2rem, -0.875rem + 5.333vw, 2rem);
     margin: ${({ currentPage }) => currentPage === "/" ? ".5rem 0" : "0 .5rem" };
-    color: ${({colors}) => colors.homePageTextColor};
+    color: ${({colors}) => colors.menuTextColor};
   }
 `;
 let socialLinkList = {
@@ -31,6 +31,7 @@ const SocialIcons = () => {
   const [siteSettings] = useGlobalState("siteSettings")
   const router = useRouter();
   const currentPage = router.pathname;
+  console.log('colors', colors);
 
   socialLinkList = {
     spotify: siteSettings.spotifyArtistLink,

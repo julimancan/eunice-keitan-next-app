@@ -24,25 +24,25 @@ const LayoutWrapper = styled.div`
     font-family: ${({headingFonts}) => headingFonts || "PrequelDemo"};
     font-size: clamp(1rem, -0.875rem + 8.333vw, 3.5rem);
     font-weight: 400;
-    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
+    color: ${({colors}) => colors.menuBarColor};
     white-space: nowrap;
   }
   h2 {
     font-family: ${({subtitleFonts}) => subtitleFonts || "PrequelDemo"};
     font-size: clamp(.7rem, -0.875rem + 5.333vw, 1.5rem);
-    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
+    color: ${({colors}) => colors.menuBarColor};
   }
   h3 {
     font-family: ${({subtitleFonts}) => subtitleFonts || "Oceanside-Typewriter"};
     font-size: 1.5rem;
-    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor};
+    color: ${({colors}) => colors.menuBarColor};
     margin: 1rem 0;
   }
 
   p {
     font-family: ${({paragraphFonts}) => paragraphFonts || "American-Typewriter"};
     font-size: clamp(.7rem, -0.875rem + 5.333vw, 1rem);
-    color: ${({colors, siteSettings}) => siteSettings.menuTextColor || colors.menuBarColor}; 
+    color: ${({colors}) => colors.menuBarColor}; 
     min-height: .5rem;
   }
   main {

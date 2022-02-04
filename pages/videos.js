@@ -37,13 +37,14 @@ export async function getServerSideProps() {
 const VideosPageContainer = styled.main`
   padding: 0 2rem;
   margin-bottom: 2rem;
-
+  color: ${({pageTextColor}) => pageTextColor || "black"};
   h2 {
     position: relative;
     width: fit-content;
     margin-left: 0.5ch;
     margin-bottom: 0.5rem;
     font-size: 2rem;
+    color: red;
     &:before {
       content: "{";
       left: -0.7ch;
@@ -61,6 +62,7 @@ const VideosPageContainer = styled.main`
   }
   p {
     line-height: 24px;
+    /* color: black; */
   }
   .youtube-wrapper {
     /* height: 30vw; */
@@ -102,16 +104,25 @@ const VideosPageContainer = styled.main`
 
 const videos = ({ tbftData, originalsData, siteConfig, videosPageContent }) => {
   const [siteSettings, setSiteSettings] = useGlobalState("siteSettings");
-
+  const [colors, setColors] = useGlobalState("colors")
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
+    setColors({
+      ...colors,
+      menuBackgroundColor: videosPageContent.pageTextColor,
+      menuTextColor: videosPageContent.pageTextColor,
+      menuBarColor: videosPageContent.pageTextColor
+    })
   }, []);
+  console.log('siteSettings', siteConfig);
+  console.log('videosPageContent', videosPageContent);
+  console.log('colors', colors);
 
-  const { soundcloudTopTracksLink } = videosPageContent;
+  const { soundcloudTopTracksLink, pageTextColor, pageBgColor } = videosPageContent;
   const { bioTitle, bioText } = siteSettings;
 
   return (
-    <VideosPageContainer>
+    <VideosPageContainer pageTextColor={pageTextColor} pageBgColor={pageBgColor} >
       <Bio
         bioTitle={bioTitle}
         bioText={bioText}

@@ -19,7 +19,7 @@ article {
   
   * {
     margin: .3rem 0;
-    color: ${({colors}) => colors.homePageTextColor};
+    color: ${({colors}) => colors.menuTextColor};
   }
   h1 {
     position: relative;
@@ -47,24 +47,33 @@ article {
 
 const HeroImage = styled.video`
   object-fit: cover;
-  width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -200px;
+  @media (min-width:1350px) {
+    width: 100vw;
+    left: 0px;
+    
+  }
 `;
 
 
 export default function Home({ siteConfig, homepageContent }) {
   const setSiteSettings = useGlobalState("siteSettings")[1];
-  const [colors] = useGlobalState("colors");
+  const [colors, setColors] = useGlobalState("colors");
 
   const { title, subtitle, subtitle2, ctaText, bgVideo } = homepageContent;
 
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
+    setColors({
+      ...colors,
+      menuBackgroundColor: siteConfig[0].menuBgColor,
+      menuTextColor: siteConfig[0].menuTextColor,
+      menuBarColor: siteConfig[0].menuTextColor
+    })
   }, []);
-
 
   return (
     <HomeContainer colors={colors}>
