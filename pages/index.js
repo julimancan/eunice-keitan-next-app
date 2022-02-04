@@ -24,25 +24,13 @@ article {
   h1 {
     position: relative;
     overflow: hidden;
+    font-size: clamp(2rem, -0.875rem + 8.333vw, 3.5rem);
+
   }
   h2 {
     font-size: 2.5vw;
   }  
-  /* button {
-    font-family: "PrequelDemo";
-    opacity: .8;
-    padding: .5rem 1rem;
-    transition: .2s;
-    &:hover {
-      border: 2px solid #755B49;
-      /* border-radius: 5px; */
-      /* color: white;
-      background: #755B49;
-    }
-  } */ 
 }
-
-
 `;
 
 const HeroImage = styled.video`

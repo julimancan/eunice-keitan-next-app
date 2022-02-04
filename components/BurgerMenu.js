@@ -68,9 +68,6 @@ const NavContainer = styled.nav`
     text-decoration: none;
     color: ${({ colors }) => colors.menuTextColor};
     margin-left: 1rem;
-    /* position: absolute; */
-    /* top: 1.75rem; */
-    /* left: 5rem; */
     font-size: 3rem;
     transition: color ${transitionDuration};
   }

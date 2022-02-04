@@ -86,7 +86,10 @@ const Header = styled.header`
 
 const Logo = styled.div`
   cursor: pointer;
-  color: ${({ colors, siteSettings, inVideos }) => inVideos ? "red" : siteSettings.menuTextColor || colors.menuBarColor};
+  color: ${({ colors, siteSettings, inVideos }) =>
+    inVideos
+      ? "red"
+      : siteSettings.menuTextColor || colors.menuBarColor || "red"};
   /* font-weight: 100; */
   #logo-desc {
     font-family: "Oceanside-Typewriter";
@@ -104,7 +107,7 @@ const DesktopNavItem = styled.li`
     font-weight: 600;
     color: ${({ selected, colors }) =>
       !selected
-        ? colors.menuBarColor || colors.homePageTextColor 
+        ? colors.menuBarColor || colors.homePageTextColor
         : colors.homePageTextColor};
     &:hover {
       color: ${({ colors }) => colors.homePageTextColor};
@@ -131,7 +134,8 @@ const Navigation = () => {
   // if (siteSettings[0])
 
   const { route } = router;
-  console.log("router", route === "/videos");
+  console.log({ colors });
+
   return (
     <Header currentPage={currentPage} colors={colors}>
       <Head>
@@ -194,7 +198,11 @@ const Navigation = () => {
         closeCheckoutAndNav={closeCheckoutAndNav}
       />
       <Link href="/" onClick={() => setNavOpen(false)}>
-        <Logo siteSettings={siteSettings} inVideos={route === "/videos"}>
+        <Logo
+          siteSettings={siteSettings}
+          inVideos={route === "/videos"}
+          colors={colors}
+        >
           <h1>{siteSettings.title}</h1>
           <h2 id="logo-desc">{siteSettings.description}</h2>
         </Logo>
