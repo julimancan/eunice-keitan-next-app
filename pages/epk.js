@@ -453,8 +453,10 @@ const epk = ({ siteConfig, epkPageContent }) => {
           <article className="lyrics-section">
             <TextContent content={lyrics} />
           </article>
+          <SocialIcons />
         </section>
       )}
+
     </EpkWrap>
   );
 };
