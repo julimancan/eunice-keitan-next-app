@@ -303,7 +303,8 @@ const epk = ({ siteConfig, epkPageContent }) => {
   const [wrongPassword, setWrongPassword] = useState(false);
 
   const [siteSettings, setSiteSettings] = useGlobalState("siteSettings");
-  const [colors] = useGlobalState("colors");
+  const [colors, setColors] = useGlobalState("colors");
+
 
   const {
     title,
@@ -329,7 +330,12 @@ const epk = ({ siteConfig, epkPageContent }) => {
   useEffect(() => {
     setPageLock(epkLock);
     setSiteSettings(siteConfig[0]);
+    setColors({
+      ...colors,
+      menuBackgroundColor: siteConfig[0].menuBgColor,
+    })
   }, []);
+  console.log('siteConfit[0]', siteConfig[0]);
 
   const passwordCheck = (event) => {
     event.preventDefault();

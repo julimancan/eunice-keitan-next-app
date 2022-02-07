@@ -8,7 +8,7 @@ const transitionDuration = ".4s";
 
 const BurgerContainer = styled.div`
   top: 2rem;
-  right: 2rem;
+  right: 3rem;
   position: fixed;
   color: white;
   cursor: pointer;

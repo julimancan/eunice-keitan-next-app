@@ -44,7 +44,7 @@ const VideosPageContainer = styled.main`
     margin-left: 0.5ch;
     margin-bottom: 0.5rem;
     font-size: 2rem;
-    color: red;
+    /* color: red; */
     &:before {
       content: "{";
       left: -0.7ch;

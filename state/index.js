@@ -5,7 +5,7 @@ const initialState = {
   siteSettings: {
   },
   colors: {
-    menuBackgroundColor: "red",
+    menuBackgroundColor: "black",
     menuBarColor: "#766D64",
     menuTextColor: "black",
     homePageTextColor: "black",
