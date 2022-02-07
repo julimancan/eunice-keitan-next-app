@@ -67,7 +67,6 @@ const Layout = ({ children }) => {
   const [siteSettings] = useGlobalState("siteSettings");
   const [colors] = useGlobalState("colors");
   const { headingFonts, menuFont, paragraphFonts, subtitleFonts } = siteSettings;
-  console.log(siteSettings)
   return (
     <LayoutWrapper colors={colors} 
       headingFonts={headingFonts} menuFont={menuFont} paragraphFonts={paragraphFonts} subtitleFonts={subtitleFonts} siteSettings={siteSettings}

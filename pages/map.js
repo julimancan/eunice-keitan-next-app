@@ -78,7 +78,7 @@ const map = () => {
       // create a new dom node and save it to the react ref
       ref.current = document.createElement("div");
       // render a marker component on our new dom node
-      console.log(`feature`, feature)
+      // console.log(`feature`, feature)
       ReactDOM.render(
         <MapMarker onClick={markerClicked} feature={feature} >
 

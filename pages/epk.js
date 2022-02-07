@@ -326,13 +326,11 @@ const epk = ({ siteConfig, epkPageContent }) => {
     bioImage,
     lyrics,
   } = epkPageContent;
-  console.log({ epkPageContent });
   useEffect(() => {
     // setPageLock(epkLock);
     setSiteSettings(siteConfig[0]);
   }, []);
 
-  console.log({ siteSettings });
   const passwordCheck = (event) => {
     event.preventDefault();
     if (password === epkLockPw) {

@@ -157,7 +157,6 @@ const VideoModal = styled.div`
 `;
 
 export default function YoutubePlaylist({ videos, current }) {
-  // console.log(videos)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
@@ -179,15 +178,9 @@ export default function YoutubePlaylist({ videos, current }) {
       <ul>
         {videos.items &&
           videos.items.map((item, index) => {
-            {
-              /* console.log(item) */
-            }
             const { id, snippet = {} } = item;
             const { title, thumbnails = {}, resourceId, description } = snippet;
             const { medium = {} } = thumbnails;
-            {
-              /* console.log({ medium }) */
-            }
             return (
               <li
                 key={index}

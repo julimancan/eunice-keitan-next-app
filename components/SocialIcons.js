@@ -31,7 +31,6 @@ const SocialIcons = () => {
   const [siteSettings] = useGlobalState("siteSettings")
   const router = useRouter();
   const currentPage = router.pathname;
-  console.log('colors', colors);
 
   socialLinkList = {
     spotify: siteSettings.spotifyArtistLink,

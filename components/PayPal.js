@@ -15,8 +15,6 @@ const PayPal = ({ donationAmount, setOpenPaypal }) => {
   const paypal = useRef();
 
   useEffect(() => {
-    console.log(`in use effect`)
-    console.log(`window.paypal`, window.paypal)
     window.paypal.Buttons({
       createOrder: (data, actions, err) => {
         return actions.order.create({

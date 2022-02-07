@@ -114,9 +114,6 @@ const videos = ({ tbftData, originalsData, siteConfig, videosPageContent }) => {
       menuBarColor: videosPageContent.pageTextColor
     })
   }, []);
-  console.log('siteSettings', siteConfig);
-  console.log('videosPageContent', videosPageContent);
-  console.log('colors', colors);
 
   const { soundcloudTopTracksLink, pageTextColor, pageBgColor } = videosPageContent;
   const { bioTitle, bioText } = siteSettings;

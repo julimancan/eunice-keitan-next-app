@@ -116,7 +116,6 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
   const [siteSettings] = useGlobalState("siteSettings");
   const router = useRouter();
   const { route } = router;
-  console.log('colors', colors);
   
   return (
     <NavContainer open={navOpen} colors={colors} siteSettings={siteSettings}>

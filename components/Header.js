@@ -119,7 +119,6 @@ const Navigation = () => {
   // if (siteSettings[0])
 
   const { route } = router;
-  console.log({ colors });
 
   return (
     <Header
