@@ -1,29 +1,44 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { bioDetails, lywdLyrics } from "../components/content";
 import SocialIcons from "../components/SocialIcons";
+import { StyledButton } from "../components/StyledButton";
 import TextContent from "../components/TextContent";
 import { getEpkPageContent, getSiteSettings } from "../lib/api";
 import { useGlobalState } from "../state";
+import { saveAs } from "file-saver";
+import { BsDownload } from "react-icons/bs";
 
-const epkImages = [
-  {
-    name: "Eunice Keitan Lay Your Weapons Down image 1",
-    path: "/images/EuniceKeitan-LYWD-Photo1.jpg",
-  },
-  {
-    name: "Eunice Keitan Lay Your Weapons Down image 2",
-    path: "/images/EuniceKeitan-LYWD-Photo2.jpg",
-  },
-  {
-    name: "Eunice Keitan Lay Your Weapons Down image 3",
-    path: "/images/EuniceKeitan-LYWD-Photo3.jpg",
-  },
-  {
-    name: "Eunice Keitan Lay Your Weapons Down Album Art",
-    path: "/images/LayYourWeaponsDown-EuniceKeitan-AlbumArt.jpg",
-  },
-];
+const LockPage = styled.form`
+  position: sticky;
+  inset: 0;
+  background: ${({ colors }) => colors.videosPageBackground};
+  /* width: 99vw; */
+  /* height: 100vh; */
+  /* background: red; */
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3rem;
+  padding: 10rem 0.5rem;
+  max-width: 80%;
+  input {
+    max-width: 80%;
+    height: 3rem;
+    font-size: 3rem;
+    margin: 1.5rem;
+  }
+  button {
+    font-size: 1.5rem;
+  }
+  .password-checker {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0.5rem 1rem 1rem 1rem;
+    width: 588px;
+  }
+`;
 
 const EpkWrap = styled.main`
   position: relative;
@@ -50,6 +65,7 @@ const EpkWrap = styled.main`
   p {
     color: black;
     line-height: 24px;
+    letter-spacing: 1px;
   }
   strong {
     font-family: "Oceanside-Typewriter";
@@ -101,6 +117,9 @@ const EpkWrap = styled.main`
         .song-desc {
           margin: 1rem 0;
         }
+        h3 {
+          margin-top: 0;
+        }
       }
     }
     .video-notes {
@@ -133,7 +152,7 @@ const EpkWrap = styled.main`
         }
       }
       ul {
-        margin: 1rem 0; 
+        margin: 1rem 0;
         li {
           font-family: "American-Typewriter";
           line-height: 24px;
@@ -145,13 +164,44 @@ const EpkWrap = styled.main`
     }
   }
   .desktop-bio-img {
-    display: none;
+    display: 
+    none;
   }
-  img {
+  .mobile-bio-img, .desktop-bio-img {
     aspect-ratio: 1 / 1.3;
     max-height: 80vh;
     width: 100%;
     object-fit: cover;
+  }
+  .photos-section {
+    ul {
+      list-style: none;
+      /* background: red; */
+      * {
+        /* border: 1px solid black; */
+      }
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .5rem;
+      .image-wrapper {
+        position: relative;
+        svg {
+          position: absolute;
+          z-index: 20;
+          top: 1rem;
+          left: 1rem;
+          cursor: pointer;
+          transform: scale(1.2)
+        }
+        img {
+          /* aspect-ratio: 1 / 1.3; */
+          /* max-height: 80vh; */
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
   }
   .bio-text {
     margin-bottom: 2rem;
@@ -229,42 +279,6 @@ const EpkWrap = styled.main`
     }
   }
 `;
-const LockPage = styled.form`
-  position: sticky;
-  inset: 0;
-  background: ${({ colors }) => colors.videosPageBackground};
-  /* width: 99vw; */
-  /* height: 100vh; */
-  /* background: red; */
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-size: 3rem;
-  padding: 10rem 0.5rem;
-  max-width: 80%;
-  input {
-    max-width: 80%;
-    height: 3rem;
-    font-size: 3rem;
-    margin: 1.5rem;
-  }
-  input[type="submit"] {
-    /* background: red; */
-    font-size: 2rem;
-    /* padding:  0 2rem 3rem 2rem; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .password-checker {
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 0.5rem 1rem 1rem 1rem;
-    width: 588px;
-  }
-`;
 
 const WrongPassword = styled.div`
   position: absolute;
@@ -293,28 +307,18 @@ const epk = ({ siteConfig, epkPageContent }) => {
 
   const {
     title,
-    pageBgColor,
-    pageTextColor,
     epkLock,
     epkLockPwTitle,
     epkLockPw,
     epkLockPwCtaText,
     releaseType,
-    soundCloudEpkLink,
-    youtubeSingleLink,
-    youtubePlaylistId,
+    soundCloudEpkEmbed,
+    youtubeSingleEmbed,
     releaseDate,
     releaseNotesTitle,
     releaseNotes,
     photosSection,
-    // 0: {alt: 'Eunice Keitan Lay Your Weapons Down Image', url: 'https://cdn.sanity.io/images/qo6vhcd5/production/a…9cc80275dd7186c5aeada545b820ed25f894-1000x667.jpg'}
-    // 1: {alt: 'Eunice Keitan Lay Your Weapons Down Image', url: 'https://cdn.sanity.io/images/qo6vhcd5/production/d…4489632bc8ab49696e007e0b0f915b5e3ec8-667x1000.jpg'}
-    // 2: {alt: 'Eunice Keitan Lay Your Weapons Down Image', url: 'https://cdn.sanity.io/images/qo6vhcd5/production/2…9faec51f341b8d80e00057300be6dd593413-667x1000.jpg'}
-    // 3: {alt: 'Eunice Keitan Lay Your Weapons Down Album Artwork', url: 'https://cdn.sanity.io/images/qo6vhcd5/production/a…e20d373df8e26a220678317310d35c60c26-1400x1400.jpg'}
-    // length: 4
-    // [[Prototype]]: Array(0)
     photosSectionTitle,
-
     otherNotestitle,
     otherNotes,
     artistInfo,
@@ -324,11 +328,11 @@ const epk = ({ siteConfig, epkPageContent }) => {
   } = epkPageContent;
   console.log({ epkPageContent });
   useEffect(() => {
-    setPageLock(epkLock);
+    // setPageLock(epkLock);
     setSiteSettings(siteConfig[0]);
   }, []);
 
-  console.log({ epkPageContent });
+  console.log({ siteSettings });
   const passwordCheck = (event) => {
     event.preventDefault();
     if (password === epkLockPw) {
@@ -356,7 +360,14 @@ const epk = ({ siteConfig, epkPageContent }) => {
             autoFocus
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">{epkLockPwCtaText || "submit"}</button>
+          <StyledButton
+            colors={colors}
+            siteSettings={siteSettings}
+            inHome={false}
+            type="submit"
+          >
+            {epkLockPwCtaText || "submit"}
+          </StyledButton>
 
           {wrongPassword && (
             <WrongPassword>
@@ -373,15 +384,11 @@ const epk = ({ siteConfig, epkPageContent }) => {
             </h2>
             <h3 className="release-date">Release Date: {releaseDate}</h3>
             <section className="soundcloud-notes">
-              <div className="iframe-wrapper">
-                <iframe
-                  className="soundcloud-player"
-                  scrolling="no"
-                  frameBorder="0"
-                  src={soundCloudEpkLink}
-                  className="embed-code-player__frame"
-                ></iframe>
-              </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: soundCloudEpkEmbed }}
+                className="soundcloud-player"
+              ></div>
+
               <div className="notes">
                 <h3>
                   {releaseNotesTitle} {title}
@@ -392,16 +399,9 @@ const epk = ({ siteConfig, epkPageContent }) => {
             <section className="video-notes">
               <h3>{otherNotestitle}</h3>
               <TextContent content={otherNotes} />
-              <iframe
-                frameBorder="0"
-                allowFullscreen="1"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                title="YouTube video player"
-                width="100%"
-                height="100%"
-                src={youtubeSingleLink}
-                id="widget2"
-              ></iframe>
+              <div
+                dangerouslySetInnerHTML={{ __html: youtubeSingleEmbed }}
+              ></div>
             </section>
           </article>
           <article className="artInfo-press">
@@ -428,18 +428,23 @@ const epk = ({ siteConfig, epkPageContent }) => {
                 src={bioImage.url}
                 alt={bioImage.alt}
               />
-              {bioDetails.map((parag, index) => (
-                <p key={index}>{parag}</p>
-              ))}
+              <TextContent content={siteSettings.bioText} />
             </section>
           </article>
-          <article>
+          <article className="photos-section">
             <h3>{photosSectionTitle}</h3>
-            {photosSection.map((item, index) => (
-              <div className="image-wrapper" key={index}>
-                <img src={item.url} alt={item.alt} />
-              </div>
-            ))}
+            <ul>
+              {photosSection.map((item, index) => (
+                <li className="image-wrapper" key={index}>
+                  <BsDownload
+                    onClick={() =>
+                      saveAs(item.url, `eunice-keitan-img-${index}.jpg`)
+                    }
+                  />
+                  <img src={item.url} alt={item.alt} />
+                </li>
+              ))}
+            </ul>
           </article>
           <article className="lyrics-section">
             <TextContent content={lyrics} />

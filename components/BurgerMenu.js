@@ -8,7 +8,7 @@ const transitionDuration = ".4s";
 
 const BurgerContainer = styled.div`
   top: 2rem;
-  right: 3rem;
+  right: 2rem;
   position: fixed;
   color: white;
   cursor: pointer;
@@ -26,7 +26,7 @@ const Burger = styled.div`
   background: ${({ open, colors }) =>
     open ? colors.menuBackgroundColor : colors.menuBarColor};
   border-radius: 5px;
-  align-self: center;
+
   transition: width ${transitionDuration}, background ${transitionDuration};
   &:before,
   &:after {
