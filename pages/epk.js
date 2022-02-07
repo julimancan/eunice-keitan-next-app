@@ -327,7 +327,7 @@ const epk = ({ siteConfig, epkPageContent }) => {
     lyrics,
   } = epkPageContent;
   useEffect(() => {
-    // setPageLock(epkLock);
+    setPageLock(epkLock);
     setSiteSettings(siteConfig[0]);
   }, []);
 
