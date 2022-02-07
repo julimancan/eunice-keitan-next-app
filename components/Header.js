@@ -180,6 +180,9 @@ const Navigation = () => {
           data-website-id="4f284092-ca72-4596-aaf3-3b075a73abf1"
           src="https://analytics-julimancan.vercel.app/umami.js"
         ></script>
+        <meta name="description" content={siteSettings.description}/>
+        <title>{siteSettings.title}</title>
+        
       </Head>
 
       <Link href="/" onClick={() => setNavOpen(false)}>

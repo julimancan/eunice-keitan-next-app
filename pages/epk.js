@@ -98,12 +98,34 @@ const EpkWrap = styled.main`
       display: flex;
       flex-direction: column;
       padding-top: 0;
+      height: 100%;
       .soundcloud-player {
         width: 100%;
         height: 100%;
         min-height: 300px;
         max-height: 400px;
         aspect-ratio: 1/1;
+        iframe {
+          height: 350px;
+          width: 85vw;
+          margin: 0 auto 1rem;
+          @media (min-width: 800px) {
+            height: 550px;
+            width: 100%;
+          }
+          @media (min-width: 900px) {
+            height: 500px;
+          }
+          @media (min-width: 980px) {
+            height: 450px;
+          }
+          @media (min-width: 1280px) {
+            height: 350px;
+          }
+          @media (min-width: 1380px) {
+            height: 350px;
+          }
+        }
       }
 
       .notes {
@@ -133,9 +155,14 @@ const EpkWrap = styled.main`
       p {
         margin-bottom: 1rem;
       }
-      iframe {
-        aspect-ratio: 16/9;
+      div {
         width: 100%;
+        aspect-ratio: 16/9;
+        iframe {
+          aspect-ratio: 16/9;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
@@ -143,6 +170,7 @@ const EpkWrap = styled.main`
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    justify-content: flex-start;
     div {
       min-width: 400px;
       div {
@@ -153,6 +181,8 @@ const EpkWrap = styled.main`
       }
       ul {
         margin: 1rem 0;
+        list-style: none;
+
         li {
           font-family: "American-Typewriter";
           line-height: 24px;
@@ -164,10 +194,10 @@ const EpkWrap = styled.main`
     }
   }
   .desktop-bio-img {
-    display: 
-    none;
+    display: none;
   }
-  .mobile-bio-img, .desktop-bio-img {
+  .mobile-bio-img,
+  .desktop-bio-img {
     aspect-ratio: 1 / 1.3;
     max-height: 80vh;
     width: 100%;
@@ -176,13 +206,9 @@ const EpkWrap = styled.main`
   .photos-section {
     ul {
       list-style: none;
-      /* background: red; */
-      * {
-        /* border: 1px solid black; */
-      }
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: .5rem;
+      gap: 0.5rem;
       .image-wrapper {
         position: relative;
         svg {
@@ -191,11 +217,10 @@ const EpkWrap = styled.main`
           top: 1rem;
           left: 1rem;
           cursor: pointer;
-          transform: scale(1.2)
+          transform: scale(1.25);
+          color: white;
         }
         img {
-          /* aspect-ratio: 1 / 1.3; */
-          /* max-height: 80vh; */
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -269,9 +294,10 @@ const EpkWrap = styled.main`
     .artInfo-press {
       padding-top: 0;
       flex-direction: row;
-      justify-content: space-evenly;
+      /* justify-content: space-evenly; */
+      gap: 5%;
       div {
-        width: 30%;
+        width: 45%;
       }
       ul {
         list-style: none;
@@ -305,7 +331,6 @@ const epk = ({ siteConfig, epkPageContent }) => {
   const [siteSettings, setSiteSettings] = useGlobalState("siteSettings");
   const [colors, setColors] = useGlobalState("colors");
 
-
   const {
     title,
     epkLock,
@@ -333,9 +358,9 @@ const epk = ({ siteConfig, epkPageContent }) => {
     setColors({
       ...colors,
       menuBackgroundColor: siteConfig[0].menuBgColor,
-    })
+    });
   }, []);
-  console.log('siteConfit[0]', siteConfig[0]);
+  console.log("siteConfit[0]", siteConfig[0]);
 
   const passwordCheck = (event) => {
     event.preventDefault();
@@ -456,7 +481,6 @@ const epk = ({ siteConfig, epkPageContent }) => {
           <SocialIcons />
         </section>
       )}
-
     </EpkWrap>
   );
 };
