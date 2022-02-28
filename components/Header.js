@@ -118,6 +118,15 @@ const Navigation = () => {
   };
   // if (siteSettings[0])
 
+  const pixelPreparer = (pixel) => {
+    if (!pixel) return;
+    const array1 = pixel;
+    const array2 = pixel;
+    const firstItem = array1.split("script>")[1].split("</")[0];
+    const secondItem = array2.split("noscript>")[1].split("</")[0];
+    return [firstItem, secondItem];
+  };
+
   const { route } = router;
 
   return (
@@ -128,6 +137,21 @@ const Navigation = () => {
       inHome={route === "/"}
     >
       <Head>
+        {siteSettings.pixel && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: pixelPreparer(siteSettings?.pixel)[0],
+              }}
+            />
+
+            <noscript
+              dangerouslySetInnerHTML={{
+                __html: pixelPreparer(siteSettings?.pixel)[1],
+              }}
+            />
+          </>
+        )}
         <link
           rel="preload"
           href="/fonts/Oceanside-Typewriter.ttf"
@@ -180,9 +204,8 @@ const Navigation = () => {
           data-website-id="4f284092-ca72-4596-aaf3-3b075a73abf1"
           src="https://analytics-julimancan.vercel.app/umami.js"
         ></script>
-        <meta name="description" content={siteSettings.description}/>
+        <meta name="description" content={siteSettings.description} />
         <title>{siteSettings.title}</title>
-        
       </Head>
 
       <Link href="/" onClick={() => setNavOpen(false)}>
