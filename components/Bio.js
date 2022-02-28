@@ -79,9 +79,7 @@ const Bio = ({ bioTitle, bioText, soundcloudTopTracksLink }) => {
         <h2>
           {bioTitle}
         </h2>
-          <TextContent
-            content={bioText}
-          />
+          <TextContent content={bioText}/>
       </div>
       <div className="soundCloud">
         <SoundCloudPlayer source={soundcloudTopTracksLink} />
