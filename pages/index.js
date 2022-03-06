@@ -38,11 +38,8 @@ const HeroImage = styled.video`
   height: 100vh;
   position: fixed;
   top: 0;
-  left: -200px;
   @media (min-width:1350px) {
     width: 100vw;
-    left: 0px;
-    
   }
 `;
 
@@ -51,7 +48,7 @@ export default function Home({ siteConfig, homepageContent }) {
   const setSiteSettings = useGlobalState("siteSettings")[1];
   const [colors, setColors] = useGlobalState("colors");
 
-  const { title, subtitle, subtitle2, ctaText, bgVideo } = homepageContent;
+  const { title, subtitle, subtitle2, ctaText, bgVideo, songLinks } = homepageContent;
 
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
@@ -62,7 +59,7 @@ export default function Home({ siteConfig, homepageContent }) {
       menuBarColor: siteConfig[0].menuTextColor
     })
   }, []);
-
+console.log('songLinks', songLinks)
   return (
     <HomeContainer colors={colors}>
       <Head>
