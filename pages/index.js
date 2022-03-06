@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import SocialIcons from '../components/SocialIcons';
-import { getHomePageContent, getSiteSettings, urlFor } from '../lib/api';
+import { getHomePageContent, getSiteSettings } from '../lib/api';
 import { useGlobalState } from '../state';
 import Head from 'next/head';
 import Button from './../components/Button';
+import SongLinks from '../components/SongLinks';
 
 const HomeContainer = styled.main`
 display: flex;
@@ -19,16 +20,20 @@ article {
   
   * {
     margin: .3rem 0;
-    color: ${({colors}) => colors.menuTextColor};
+    color: ${({ colors }) => colors.menuTextColor};
   }
   h1 {
     position: relative;
     overflow: hidden;
-    font-size: clamp(2rem, -0.875rem + 8.333vw, 3.5rem);
+    font-size: minmax(1.5rem, 3rem);
 
   }
   h2 {
-    font-size: 2.5vw;
+    font-family:'Oceanside-Typewriter';
+    font-size: 1rem;
+    @media (min-width: 800px) {
+      font-size: 2rem;
+    }
   }  
 }
 `;
@@ -59,7 +64,7 @@ export default function Home({ siteConfig, homepageContent }) {
       menuBarColor: siteConfig[0].menuTextColor
     })
   }, []);
-console.log('songLinks', songLinks)
+  console.log('songLinks', songLinks)
   return (
     <HomeContainer colors={colors}>
       <Head>
@@ -76,6 +81,7 @@ console.log('songLinks', songLinks)
         {ctaText && (
           <Button>{ctaText}</Button>
         )}
+        <SongLinks songLinks={songLinks} />
       </article>
       <SocialIcons />
     </HomeContainer>
