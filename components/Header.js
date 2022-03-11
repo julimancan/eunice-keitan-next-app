@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useGlobalState } from "../state";
 import { urlFor } from "../lib/api";
 import { StyledButton } from "./StyledButton";
+import Script from "next/script";
 
 const DesktopNav = styled.nav`
   /* background: red; */
@@ -18,6 +19,7 @@ const DesktopNav = styled.nav`
   ul {
     display: flex;
     list-style: none;
+    gap: 2rem;
     /* margin-right: 2rem; */
   }
   @media (min-width: 1068px) {
@@ -40,27 +42,14 @@ const Header = styled.header`
     margin-top: 3rem;
     align-items: center;
   }
-  .donate-btn {
-    right: 2.5rem;
-    bottom: 0.5rem;
-    span {
-      font-family: "PrequelDemo";
-    }
-  }
-  @media (min-width: 600px) {
-    .donate-btn {
-      bottom: 2rem;
-    }
+  span {
+    font-family: "PrequelDemo";
   }
   @media (min-width: 1068px) {
     align-items: center;
     padding: 2rem 4% 2rem 3%;
     .nav {
       margin-top: 0;
-    }
-    .donate-btn {
-      bottom: 4.3rem;
-      right: 4.5rem;
     }
     .donation-container {
       position: absolute;
@@ -85,7 +74,6 @@ const DesktopNavItem = styled.li`
   cursor: pointer;
   margin-left: 1rem;
   text-transform: uppercase;
-  margin: 0 2rem;
   h2 {
     font-size: 1.4rem;
     font-weight: 600;
@@ -152,45 +140,10 @@ const Navigation = () => {
             />
           </>
         )}
-        <link
-          rel="preload"
-          href="/fonts/Oceanside-Typewriter.ttf"
-          as="font"
-          crossOrigin=""
-        />
-        <link
-          rel="preload"
-          href="/fonts/PrequelDemo-Regular.ttf"
-          as="font"
-          crossOrigin=""
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href={`https://fonts.googleapis.com/css2?family=${
-            siteSettings.headingFonts || ""
-          }&display=optional`}
-          rel="stylesheet"
-        />
-        <link
-          href={`https://fonts.googleapis.com/css2?family=${siteSettings.menuFont}&display=optional`}
-          rel="stylesheet"
-        />
-        <link
-          href={`https://fonts.googleapis.com/css2?family=${siteSettings.paragraphFonts}&display=optional`}
-          rel="stylesheet"
-        />
-        <link
-          href={`https://fonts.googleapis.com/css2?family=${siteSettings.subtitleFonts}&display=optional`}
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
-          rel="stylesheet"
-        />
-        <script
+
+        <Script
           src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}
-        ></script>
+        ></Script>
         <title>{siteSettings.title}</title>
         <link
           rel="shortcut icon"
@@ -198,12 +151,12 @@ const Navigation = () => {
             siteSettings.favicon && urlFor(siteSettings.favicon).width(10).url()
           }
         />
-        <script
+        <Script
           async
           defer
           data-website-id="4f284092-ca72-4596-aaf3-3b075a73abf1"
           src="https://analytics-julimancan.vercel.app/umami.js"
-        ></script>
+        ></Script>
         <meta name="description" content={siteSettings.description} />
         <title>{siteSettings.title}</title>
       </Head>
@@ -244,28 +197,30 @@ const Navigation = () => {
                 </Link>
               );
             })}
+            {checkout ? (
+              <div className="donation-container">
+                <DonationAmount
+                  donationAmount={donationAmount}
+                  setDonationAmount={setDonationAmount}
+                  setCheckout={setCheckout}
+                />
+              </div>
+            ) : (
+              <li>
+                <StyledButton
+                  className="donate-btn"
+                  colors={colors}
+                  siteSettings={siteSettings}
+                  inHome={route === "/"}
+                >
+                  <Link href="/donate">
+                    <span>{siteSettings.ctaDonation}</span>
+                  </Link>
+                </StyledButton>
+              </li>
+            )}
           </ul>
         </DesktopNav>
-        {checkout ? (
-          <div className="donation-container">
-            <DonationAmount
-              donationAmount={donationAmount}
-              setDonationAmount={setDonationAmount}
-              setCheckout={setCheckout}
-            />
-          </div>
-        ) : (
-          <StyledButton
-            className="donate-btn"
-            colors={colors}
-            siteSettings={siteSettings}
-            inHome={route === "/"}
-          >
-            <Link href="/donate">
-              <span>{siteSettings.ctaDonation}</span>
-            </Link>
-          </StyledButton>
-        )}
       </div>
     </Header>
   );

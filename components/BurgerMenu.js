@@ -1,14 +1,17 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useGlobalState } from "../state";
 import menuItems from "./menuItems";
+import SocialIcons from "./SocialIcons";
+import { StyledButton } from "./StyledButton";
 
 const transitionDuration = ".4s";
 
 const BurgerContainer = styled.div`
   top: 2rem;
-  right: 3rem;
+  right: 1rem;
   position: fixed;
   color: white;
   cursor: pointer;
@@ -21,7 +24,7 @@ const BurgerContainer = styled.div`
 
 const Burger = styled.div`
   display: block;
-  width: ${({open}) => open ? "1px" : "40px"};
+  width: ${({ open }) => (open ? "1px" : "40px")};
   height: 3px;
   background: ${({ open, colors }) =>
     open ? colors.menuBackgroundColor : colors.menuBarColor};
@@ -34,7 +37,12 @@ const Burger = styled.div`
     border-radius: 5px;
     width: ${({ open }) => (open ? "40px" : "50px")};
     height: 5px;
-    background: ${({ colors, inVideos, open }) => inVideos ?  open ? colors.videosPageBackground : colors.menuBackgroundColor : colors.menuBarColor};
+    background: ${({ colors, inVideos, open }) =>
+      inVideos
+        ? open
+          ? colors.videosPageBackground
+          : colors.menuBackgroundColor
+        : colors.menuBarColor};
     position: absolute;
     transition: background ${transitionDuration}, top ${transitionDuration},
       bottom ${transitionDuration}, transform ${transitionDuration},
@@ -71,6 +79,16 @@ const NavContainer = styled.nav`
     font-size: 3rem;
     transition: color ${transitionDuration};
   }
+  .donate-btn {
+    position: fixed;
+    right: 1rem;
+    top: 5rem;
+    display: ${({ open }) => open ? "none" : "block"};
+
+    @media (min-width: 1068px) {
+      display: none;
+    }
+  }
 `;
 
 const NavigationList = styled.ul`
@@ -81,17 +99,20 @@ const NavigationList = styled.ul`
   align-items: center;
   list-style: none;
   line-height: 3rem;
-  `;
+`;
 
 const NavigationItem = styled.li`
   animation-name: animateIn;
   animation-duration: 350ms;
-  animation-delay: calc(${({ index }) => (index === 0 ? 1 : index + 1)} * 400ms);
+  animation-delay: calc(
+    ${({ index }) => (index === 0 ? 1 : index + 1)} * 400ms
+  );
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   h2 {
     display: ${({ open }) => (open ? "block" : "none")};
-    color: ${({ colors, inVideos }) => inVideos ? colors.videosPageBackground : colors.menuBarColor};
+    color: ${({ colors, inVideos }) =>
+      inVideos ? colors.videosPageBackground : colors.menuBarColor};
     text-transform: uppercase;
     /* font-weight: bold; */
     margin: 0.3rem;
@@ -114,14 +135,47 @@ const NavigationItem = styled.li`
 const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
   const [colors] = useGlobalState("colors");
   const [siteSettings] = useGlobalState("siteSettings");
+  const [checkout, setCheckout] = useState(false);
+
   const router = useRouter();
   const { route } = router;
-  
+
   return (
     <NavContainer open={navOpen} colors={colors} siteSettings={siteSettings}>
-      <BurgerContainer open={navOpen} onClick={() => setNavOpen(!navOpen)} inVideos={route === "/videos"}>
-        <Burger open={navOpen} colors={colors} siteSettings={siteSettings} inVideos={route === "/videos"}/>
+      <BurgerContainer
+        open={navOpen}
+        onClick={() => setNavOpen(!navOpen)}
+        inVideos={route === "/videos"}
+      >
+        <Burger
+          open={navOpen}
+          colors={colors}
+          siteSettings={siteSettings}
+          inVideos={route === "/videos"}
+        />
       </BurgerContainer>
+      {checkout ? (
+        <div className="donation-container">
+          <DonationAmount
+            donationAmount={donationAmount}
+            setDonationAmount={setDonationAmount}
+            setCheckout={setCheckout}
+          />
+        </div>
+      ) : (
+        <li>
+          <StyledButton
+            className="donate-btn"
+            colors={colors}
+            siteSettings={siteSettings}
+            inHome={route === "/"}
+          >
+            <Link href="/donate">
+              <span>{siteSettings.ctaDonation}</span>
+            </Link>
+          </StyledButton>
+        </li>
+      )}
 
       <NavigationList open={navOpen}>
         {menuItems.map((item, index) => (
@@ -137,6 +191,15 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
             </Link>
           </NavigationItem>
         ))}
+        <NavigationItem
+          key={menuItems.length + 2}
+          open={navOpen}
+          index={menuItems.length}
+          colors={colors}
+          inVideos={route === "/videos"}
+        >
+          <SocialIcons />
+        </NavigationItem>
       </NavigationList>
     </NavContainer>
   );

@@ -1,21 +1,42 @@
-import Head from "next/head";
-import { useState } from "react";
-import DonationAmount from "../components/DonationAmount"
-import { PAYPAL_CLIENT_ID } from "../utils/constants";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import DonationAmount from "../components/DonationAmount";
+import { getSiteSettings } from "../lib/api";
+import { useGlobalState } from "../state";
 
 
-const Donate = () => {
 
+export async function getStaticProps() {
+  const siteConfig = await getSiteSettings();
+  return {
+    props: {
+      siteConfig,
+    },
+  };
+}
+
+const Donate = ({ siteConfig }) => {
+  const setSiteSettings = useGlobalState("siteSettings")[1];
+  const [colors, setColors] = useGlobalState("colors");
   const [donationAmount, setDonationAmount] = useState(10);
+  console.log({siteConfig});
+  useEffect(() => {
+    setSiteSettings(siteConfig[0]);
+    setColors({
+      ...colors,
+      menuBackgroundColor: "white",
+      menuTextColor: "black",
+      menuBarColor: "black"
+    })
+  }, []);
   return (
-    <div>
-
-    
       <main>
-        <DonationAmount donationAmount={donationAmount} setDonationAmount={setDonationAmount} />
+        <DonationAmount
+          donationAmount={donationAmount}
+          setDonationAmount={setDonationAmount}
+        />
       </main>
-    </div>
-  )
+  );
 };
 
 export default Donate;

@@ -6,15 +6,11 @@ import { useGlobalState } from '../state';
 
 const SocialIconsContainer = styled.div`
   width: fit-content;
-  position: ${({ currentPage }) => currentPage === "/" ? "absolute" : "" };
   display: flex;
-  flex-direction: ${({ currentPage }) => currentPage === "/" ? "column" : "" };
   right: 1rem;
-  transform: ${({ currentPage }) => currentPage === "/" ? "translateY(-50%)" : "" };
-  margin: ${({ currentPage }) => currentPage === "/" ? "" : "2rem auto" };
   svg {
     font-size: clamp(2rem, -0.875rem + 5.333vw, 2rem);
-    margin: ${({ currentPage }) => currentPage === "/" ? ".5rem 0" : "0 .5rem" };
+    margin: ${"0 .5rem" };
     color: ${({colors}) => colors.menuTextColor};
   }
 `;

@@ -16,7 +16,7 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateY(-50%);
+  bottom: -5rem;
   
   * {
     margin: .3rem 0;
@@ -64,7 +64,6 @@ export default function Home({ siteConfig, homepageContent }) {
       menuBarColor: siteConfig[0].menuTextColor
     })
   }, []);
-  console.log('songLinks', songLinks)
   return (
     <HomeContainer colors={colors}>
       <Head>
@@ -83,13 +82,12 @@ export default function Home({ siteConfig, homepageContent }) {
         )}
         <SongLinks songLinks={songLinks} />
       </article>
-      <SocialIcons />
     </HomeContainer>
   )
 }
 
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   const siteConfig = await getSiteSettings();
   const homepageContent = await getHomePageContent();
   return {

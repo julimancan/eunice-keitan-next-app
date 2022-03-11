@@ -311,7 +311,7 @@ const WrongPassword = styled.div`
   /* inset: 1rem 0; */
   transform: translateY(150%);
 `;
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const siteConfig = await getSiteSettings();
   const epkPageContent = await getEpkPageContent();
 

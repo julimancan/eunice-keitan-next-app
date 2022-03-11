@@ -24,3 +24,6 @@ a {
   src: url("/fonts/PrequelDemo-Regular.ttf");
   font-display: swap;
 }
+li {
+  list-style: none;
+}
