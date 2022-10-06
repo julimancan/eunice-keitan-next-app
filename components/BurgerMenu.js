@@ -154,7 +154,7 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
           inVideos={route === "/videos"}
         />
       </BurgerContainer>
-      {checkout ? (
+      {/* {checkout ? (
         <div className="donation-container">
           <DonationAmount
             donationAmount={donationAmount}
@@ -175,7 +175,7 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
             </Link>
           </StyledButton>
         </li>
-      )}
+      )} */}
 
       <NavigationList open={navOpen}>
         {menuItems.map((item, index) => (
