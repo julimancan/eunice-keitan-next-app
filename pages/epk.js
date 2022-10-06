@@ -360,7 +360,6 @@ const epk = ({ siteConfig, epkPageContent }) => {
       menuBackgroundColor: siteConfig[0].menuBgColor,
     });
   }, []);
-  console.log("siteConfit[0]", siteConfig[0]);
 
   const passwordCheck = (event) => {
     event.preventDefault();

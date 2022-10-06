@@ -19,7 +19,6 @@ const Donate = ({ siteConfig }) => {
   const setSiteSettings = useGlobalState("siteSettings")[1];
   const [colors, setColors] = useGlobalState("colors");
   const [donationAmount, setDonationAmount] = useState(10);
-  console.log({siteConfig});
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
     setColors({

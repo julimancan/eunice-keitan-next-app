@@ -57,6 +57,9 @@ const Header = styled.header`
       top: 12rem;
     }
   }
+  h1 {
+    font-size: 2.5em;
+  }
 `;
 
 const Logo = styled.div`
@@ -197,7 +200,7 @@ const Navigation = () => {
                 </Link>
               );
             })}
-            {checkout ? (
+            {/* {checkout ? (
               <div className="donation-container">
                 <DonationAmount
                   donationAmount={donationAmount}
@@ -218,7 +221,7 @@ const Navigation = () => {
                   </Link>
                 </StyledButton>
               </li>
-            )}
+            )} */}
           </ul>
         </DesktopNav>
       </div>

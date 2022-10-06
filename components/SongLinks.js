@@ -14,7 +14,6 @@ a {
 `;
 const SongLinks = ({ songLinks }) => {
   const { tidal, youtube, bandcamp, spotify } = songLinks;
-  console.log({ tidal, youtube, bandcamp, spotify });
   return (
     <SongLinksWrapper>
       {tidal && (

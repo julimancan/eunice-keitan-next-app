@@ -8,16 +8,16 @@ import Button from './../components/Button';
 import SongLinks from '../components/SongLinks';
 
 const HomeContainer = styled.main`
-display: flex;
+display: grid;
+place-content: center;
 justify-content: center;
 position: relative;
 article {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  bottom: -5rem;
-  
+  display: grid;
+  place-content: center;  
+  padding: 0 !important;
+  translate: 0 -50%;
   * {
     margin: .3rem 0;
     color: ${({ colors }) => colors.menuTextColor};
@@ -26,11 +26,11 @@ article {
     position: relative;
     overflow: hidden;
     font-size: minmax(1.5rem, 3rem);
-
   }
   h2 {
     font-family:'Oceanside-Typewriter';
     font-size: 1rem;
+    text-align: center;
     @media (min-width: 800px) {
       font-size: 2rem;
     }
@@ -54,7 +54,7 @@ export default function Home({ siteConfig, homepageContent }) {
   const [colors, setColors] = useGlobalState("colors");
 
   const { title, subtitle, subtitle2, ctaText, bgVideo, songLinks } = homepageContent;
-
+  // console.log({songLinks});
   useEffect(() => {
     setSiteSettings(siteConfig[0]);
     setColors({
@@ -80,7 +80,7 @@ export default function Home({ siteConfig, homepageContent }) {
         {ctaText && (
           <Button>{ctaText}</Button>
         )}
-        <SongLinks songLinks={songLinks} />
+        {songLinks && <SongLinks songLinks={songLinks} />}
       </article>
     </HomeContainer>
   )

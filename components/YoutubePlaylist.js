@@ -216,10 +216,10 @@ export default function YoutubePlaylist({ videos, current }) {
           <div className="modal-info">
             <div className="container-for-container">
               <div className="video-container">
-                <iframe
+                <iFrame
                   className="youtube-video"
                   src={`https://www.youtube.com/embed/${modalInfo.videoId}`}
-                ></iframe>
+                ></iFrame>
               </div>
             </div>
             <section>
