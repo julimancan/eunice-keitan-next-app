@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
-import SocialIcons from "../components/SocialIcons";
 import { getHomePageContent, getSiteSettings } from "../lib/api";
 import { useGlobalState } from "../state";
 import Head from "next/head";

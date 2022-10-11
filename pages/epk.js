@@ -15,7 +15,7 @@ const LockPage = styled.form`
   /* width: 99vw; */
   /* height: 100vh; */
   /* background: red; */
-  color: black;
+  color: black !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -358,9 +358,9 @@ const epk = ({ siteConfig, epkPageContent }) => {
     setColors({
       ...colors,
       menuBackgroundColor: siteConfig[0].menuBgColor,
+      menuBarColor: siteConfig[0].menuBgColor
     });
   }, []);
-
   const passwordCheck = (event) => {
     event.preventDefault();
     if (password === epkLockPw) {
