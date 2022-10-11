@@ -172,7 +172,7 @@ export default function YoutubePlaylist({ videos, current }) {
   const getArtistName = (string) => string.split("-")[1];
 
   const getFirstParagraph = (string) => string.split("**")[0];
-
+  console.log({videos});
   return (
     <YoutubeContainer>
       <ul>
@@ -181,6 +181,8 @@ export default function YoutubePlaylist({ videos, current }) {
             const { id, snippet = {} } = item;
             const { title, thumbnails = {}, resourceId, description } = snippet;
             const { medium = {} } = thumbnails;
+
+            if (title === "Deleted video") return;
             return (
               <li
                 key={index}
@@ -193,9 +195,6 @@ export default function YoutubePlaylist({ videos, current }) {
                   });
                 }}
               >
-                {/* <a  
-               href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}
-            > */}
                 <h3>{title}</h3>
                 <div className="image-wrapper">
                   <img

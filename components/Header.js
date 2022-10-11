@@ -132,13 +132,13 @@ const Navigation = () => {
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: pixelPreparer(siteSettings?.pixel)[0],
+                __html: pixelPreparer(siteSettings.pixel)[0],
               }}
             />
 
             <noscript
               dangerouslySetInnerHTML={{
-                __html: pixelPreparer(siteSettings?.pixel)[1],
+                __html: pixelPreparer(siteSettings.pixel)[1],
               }}
             />
           </>
@@ -154,12 +154,12 @@ const Navigation = () => {
             siteSettings.favicon && urlFor(siteSettings.favicon).width(10).url()
           }
         />
-        <Script
+        <script
           async
           defer
           data-website-id="4f284092-ca72-4596-aaf3-3b075a73abf1"
           src="https://analytics-julimancan.vercel.app/umami.js"
-        ></Script>
+        ></script>
         <meta name="description" content={siteSettings.description} />
         <title>{siteSettings.title}</title>
       </Head>
