@@ -162,9 +162,9 @@ const Navigation = () => {
 
         <noscript
           dangerouslySetInnerHTML={{
-            __html: `<img height="1" width="1" style="display:none"
+            __html: <img height="1" width="1" style="display:none" alt=""
             src="https://www.facebook.com/tr?id=696323414596594&ev=PageView&noscript=1"
-            />`,
+            />,
           }}
         />
 
