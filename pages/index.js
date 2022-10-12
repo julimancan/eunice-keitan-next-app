@@ -97,7 +97,7 @@ export default function Home({ siteConfig, homepageContent }) {
 }
 
 export async function getStaticProps() {
-  const siteConfig = await getSiteSettings();
+  const siteConfig = await getSiteSettings(); 
   const homepageContent = await getHomePageContent();
   return {
     props: {
