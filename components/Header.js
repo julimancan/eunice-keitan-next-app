@@ -119,6 +119,7 @@ const Navigation = () => {
   };
 
   const { route } = router;
+  console.log(route.includes("song"));
 
   return (
     <Header
@@ -207,43 +208,45 @@ const Navigation = () => {
         <title>{siteSettings.title}</title>
       </Head>
 
-      <Link href="/" onClick={() => setNavOpen(false)}>
-        <Logo
-          siteSettings={siteSettings}
-          inHome={route === "/"}
-          colors={colors}
-        >
-          <h1>{siteSettings.title}</h1>
-          <h2 id="logo-desc">{siteSettings.description}</h2>
-        </Logo>
-      </Link>
-      <div className="nav">
-        <Menu
-          navOpen={navOpen}
-          setNavOpen={setNavOpen}
-          closeCheckoutAndNav={closeCheckoutAndNav}
-        />
-        <DesktopNav>
-          <ul>
-            {menuItems.map((item, index) => {
-              return (
-                <Link href={item.url} key={index}>
-                  <DesktopNavItem
-                    colors={colors}
-                    siteSettings={siteSettings}
-                    onClick={() => {
-                      setSelectedNavItem(item.url);
-                      setCheckout(false);
-                    }}
-                    key={item.index}
-                    selected={selectedNavItem === item.url ? true : false}
-                  >
-                    <h2>{item.name}</h2>
-                  </DesktopNavItem>
-                </Link>
-              );
-            })}
-            {/* {checkout ? (
+      {!route.includes("song") && (
+        <>
+          <Link href="/" onClick={() => setNavOpen(false)}>
+            <Logo
+              siteSettings={siteSettings}
+              inHome={route === "/"}
+              colors={colors}
+            >
+              <h1>{siteSettings.title}</h1>
+              <h2 id="logo-desc">{siteSettings.description}</h2>
+            </Logo>
+          </Link>
+          <div className="nav">
+            <Menu
+              navOpen={navOpen}
+              setNavOpen={setNavOpen}
+              closeCheckoutAndNav={closeCheckoutAndNav}
+            />
+            <DesktopNav>
+              <ul>
+                {menuItems.map((item, index) => {
+                  return (
+                    <Link href={item.url} key={index}>
+                      <DesktopNavItem
+                        colors={colors}
+                        siteSettings={siteSettings}
+                        onClick={() => {
+                          setSelectedNavItem(item.url);
+                          setCheckout(false);
+                        }}
+                        key={item.index}
+                        selected={selectedNavItem === item.url ? true : false}
+                      >
+                        <h2>{item.name}</h2>
+                      </DesktopNavItem>
+                    </Link>
+                  );
+                })}
+                {/* {checkout ? (
               <div className="donation-container">
                 <DonationAmount
                   donationAmount={donationAmount}
@@ -265,9 +268,11 @@ const Navigation = () => {
                 </StyledButton>
               </li>
             )} */}
-          </ul>
-        </DesktopNav>
-      </div>
+              </ul>
+            </DesktopNav>
+          </div>
+        </>
+      )}
     </Header>
   );
 };
