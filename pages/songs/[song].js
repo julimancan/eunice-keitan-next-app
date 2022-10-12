@@ -83,6 +83,9 @@ const StyledReleasePage = styled.main`
   padding: 0 !important;
   z-index: 100;
   max-width: unset !important;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
   article {
     /* color: #fdeadb; */
     /* background-color: red; */
