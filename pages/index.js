@@ -46,6 +46,7 @@ const HomeContainer = styled.main`
 const HeroImage = styled.video`
   object-fit: cover;
   height: 100vh;
+  width: 100vw;
   position: fixed;
   top: 0;
   @media (min-width: 1350px) {
