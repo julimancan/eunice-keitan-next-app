@@ -152,6 +152,11 @@ const Navigation = () => {
           </>
         )} */}
 
+        {/* facebook domain verification: */}
+        <meta
+          name="facebook-domain-verification"
+          content="3a5zm9fqj0yolbc7p5nf6pxoxhiqbp"
+        />
         {/* <!-- Meta Pixel Code --> */}
         <script
           dangerouslySetInnerHTML={{
