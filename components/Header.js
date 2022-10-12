@@ -160,13 +160,15 @@ const Navigation = () => {
           }}
         />
 
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: <img height="1" width="1" style="display:none" alt=""
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style="display:none"
+            alt=""
             src="https://www.facebook.com/tr?id=696323414596594&ev=PageView&noscript=1"
-            />,
-          }}
-        />
+          />
+        </noscript>
 
         <Script
           src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}
