@@ -129,65 +129,6 @@ const Navigation = () => {
       inHome={route === "/"}
     >
       <Head>
-        {/* {siteSettings.pixel && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: pixelPreparer(siteSettings.pixel)[0],
-              }}
-            />
-
-            <noscript
-              dangerouslySetInnerHTML={{
-                __html:    <noscript>
-          <img
-            height="1"
-            width="1"
-            style="display:none"
-            alt=""
-            src="https://www.facebook.com/tr?id=696323414596594&ev=PageView&noscript=1"
-          />
-        </noscript>,
-              }}
-            />
-          </>
-        )} */}
-
-        {/* facebook domain verification: */}
-        <meta
-          name="facebook-domain-verification"
-          content="3a5zm9fqj0yolbc7p5nf6pxoxhiqbp"
-        />
-        {/* <!-- Meta Pixel Code --> */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `!function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1438480322956898');
-            fbq('track', 'PageView');`,
-          }}
-        />
-
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `
-          <img
-            height="1"
-            width="1"
-            style="display:none"
-            alt=""
-            src="https://www.facebook.com/tr?id=696323414596594&ev=PageView&noscript=1"
-          />
-        `,
-          }}
-        ></noscript>
-
         <Script
           src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=CAD`}
         ></Script>

@@ -8,6 +8,8 @@ import {
   // getSiteSettings,
 } from "../../lib/api";
 // import { useGlobalState } from "../../state";
+import * as fbq from '../../lib/fpixel'
+
 
 export const getStaticPaths = async () => {
   const allSlugs = await getAllSongReleaseSlugs();
@@ -42,6 +44,10 @@ const Song = ({ siteConfig, pageContent }) => {
   // useEffect(() => {
   //   setSiteSettings(siteConfig[0]);
   // }, []);
+  const triggerSpotifyClick = () => {
+    console.log("fb-event-triggered!");
+    fbq.event('Spotify-view')
+  }
 
   const { name, description, image, songLink } = pageContent;
   return (
@@ -65,7 +71,7 @@ const Song = ({ siteConfig, pageContent }) => {
             className="spotify-logo"
           />
           <Link href={songLink} passHref>
-            <a target="_blank">
+            <a target="_blank" onClick={triggerSpotifyClick}>
               <p>Listen</p>
             </a>
           </Link>
