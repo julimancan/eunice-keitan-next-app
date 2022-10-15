@@ -119,7 +119,7 @@ const Navigation = () => {
   };
 
   const { route } = router;
-  console.log(route.includes("song"));
+  // console.log(route.includes("song"));
 
   return (
     <Header

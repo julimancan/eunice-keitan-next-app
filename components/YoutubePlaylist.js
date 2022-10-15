@@ -172,7 +172,7 @@ export default function YoutubePlaylist({ videos, current }) {
   const getArtistName = (string) => string.split("-")[1];
 
   const getFirstParagraph = (string) => string.split("**")[0];
-  console.log({videos});
+  // console.log({videos});
   return (
     <YoutubeContainer>
       <ul>
