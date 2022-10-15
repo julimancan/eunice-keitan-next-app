@@ -46,7 +46,7 @@ const Song = ({ siteConfig, pageContent }) => {
   // }, []);
   const triggerSpotifyClick = () => {
     console.log("fb-event-triggered!");
-    fbq.event('Spotify-view')
+    fbq.event('Purchase', { currency: 'USD', value: 10 })
   }
 
   const { name, description, image, songLink } = pageContent;
