@@ -169,7 +169,7 @@ const Navigation = () => {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '696323414596594');
+            fbq('init', '1438480322956898');
             fbq('track', 'PageView');`,
           }}
         />
