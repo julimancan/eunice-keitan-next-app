@@ -8,8 +8,7 @@ import {
   // getSiteSettings,
 } from "../../lib/api";
 // import { useGlobalState } from "../../state";
-import * as fbq from '../../lib/fpixel'
-
+import * as fbq from "../../lib/fpixel";
 
 export const getStaticPaths = async () => {
   const allSlugs = await getAllSongReleaseSlugs();
@@ -36,7 +35,7 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-const Song = ({ siteConfig, pageContent }) => {
+const Song = ({ pageContent }) => {
   // console.log({ pageContent, siteConfig });
   // const [siteSettings, setSiteSettings] = useGlobalState("siteSettings");
   // const [colors, setColors] = useGlobalState("colors");
@@ -46,10 +45,16 @@ const Song = ({ siteConfig, pageContent }) => {
   // }, []);
   const triggerSpotifyClick = () => {
     console.log("fb-event-triggered!");
-    fbq.event('Spotify-view')
-  }
+    fbq.event("Spotify-view");
+  };
 
-  const { name, description, image, songLink } = pageContent;
+  const { name, description, image, songLink, preSaveLink } = pageContent;
+
+  const today = new Date(Date.now());
+  const releaseDate = new Date(pageContent.releaseDate);
+
+  const isReleaseDateInFuture = releaseDate > today;
+
   return (
     <StyledReleasePage>
       <SanityPicture
@@ -62,6 +67,7 @@ const Song = ({ siteConfig, pageContent }) => {
         // height={image.height}
       />
       <article>
+        <h2>Eunice Keitan</h2>
         <h1>{name}</h1>
 
         <section className="spotify-link">
@@ -70,11 +76,21 @@ const Song = ({ siteConfig, pageContent }) => {
             alt="spotify logo"
             className="spotify-logo"
           />
-          <Link href={songLink} passHref>
-            <a target="_blank" onClick={triggerSpotifyClick}>
-              <p>Listen</p>
-            </a>
-          </Link>
+          {isReleaseDateInFuture
+            ? preSaveLink && (
+                <Link href={preSaveLink} passHref>
+                  <a target="_blank" onClick={triggerSpotifyClick}>
+                    <p>Pre Save</p>
+                  </a>
+                </Link>
+              )
+            : songLink && (
+                <Link href={songLink} passHref>
+                  <a target="_blank" onClick={triggerSpotifyClick}>
+                    <p>Listen</p>
+                  </a>
+                </Link>
+              )}
         </section>
       </article>
     </StyledReleasePage>
@@ -98,6 +114,10 @@ const StyledReleasePage = styled.main`
     height: fit-content;
     display: grid;
     place-content: center;
+    h2 {
+      color: white;
+      display: none;
+    }
     h1 {
       color: white;
       margin: 0 auto;
@@ -115,7 +135,7 @@ const StyledReleasePage = styled.main`
         /* background-color: red; */
       }
       a {
-        padding: .5rem 2rem;
+        padding: 0.5rem 2rem;
         position: relative;
         width: fit-content;
         cursor: pointer;
@@ -124,7 +144,7 @@ const StyledReleasePage = styled.main`
           /* background-color: red; */
           font-size: 1rem;
           line-height: 1rem;
-          font-family: "Oceanside-Typewriter"
+          font-family: "Oceanside-Typewriter";
         }
         &:after {
           content: "";
