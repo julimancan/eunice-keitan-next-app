@@ -1,7 +1,9 @@
 // import { useEffect } from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import SanityPicture from "../../components/SanityPicture";
+import Seo from "../../components/Seo";
 import {
   getAllSongReleaseSlugs,
   getReleasePageContent,
@@ -43,8 +45,8 @@ const Song = ({ pageContent }) => {
   // useEffect(() => {
   //   setSiteSettings(siteConfig[0]);
   // }, []);
+
   const triggerSpotifyClick = () => {
-    console.log("fb-event-triggered!");
     fbq.event("Spotify-view");
   };
 
@@ -66,6 +68,9 @@ const Song = ({ pageContent }) => {
         // width={image.width}
         // height={image.height}
       />
+      <Seo 
+        title={`Eunice Keitan - ${name}`}
+      />
       <article>
         <h2>Eunice Keitan</h2>
         <h1>{name}</h1>
@@ -79,14 +84,14 @@ const Song = ({ pageContent }) => {
           {isReleaseDateInFuture
             ? preSaveLink && (
                 <Link href={preSaveLink} passHref>
-                  <a className="umami--click--spotify-button" target="_blank" onClick={triggerSpotifyClick}>
+                  <a className={`umami--click--spotify-${name}-button`} target="_blank" onClick={triggerSpotifyClick}>
                     <p>Pre Save</p>
                   </a>
                 </Link>
               )
             : songLink && (
                 <Link href={songLink} passHref>
-                  <a className="umami--click--spotify-button" target="_blank" onClick={triggerSpotifyClick}>
+                  <a className={`umami--click--spotify-${name}-button`} target="_blank" onClick={triggerSpotifyClick}>
                     <p>Listen</p>
                   </a>
                 </Link>
