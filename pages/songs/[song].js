@@ -56,7 +56,6 @@ const Song = ({ pageContent }) => {
   const releaseDate = new Date(pageContent.releaseDate);
 
   const isReleaseDateInFuture = releaseDate > today;
-  console.log(name.split(" ").join("-"))
   return (
     <StyledReleasePage>
       <SanityPicture
