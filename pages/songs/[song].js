@@ -76,7 +76,7 @@ const Song = ({ pageContent }) => {
 
         <section className="spotify-link">
           <img
-            src="/spotify-logo-white.png"
+            src="/spotify-logo-green.png"
             alt="spotify logo"
             className="spotify-logo"
           />
@@ -143,9 +143,11 @@ const StyledReleasePage = styled.main`
         position: relative;
         width: fit-content;
         cursor: pointer;
-        border: 1px solid white;
+        /* border: 1px solid white; */
+        background-color: #23b26d;
         p {
           /* background-color: red; */
+          color: white;
           font-size: 1rem;
           line-height: 1rem;
           font-family: "Oceanside-Typewriter";
