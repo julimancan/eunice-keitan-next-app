@@ -56,7 +56,7 @@ const Song = ({ pageContent }) => {
   const releaseDate = new Date(pageContent.releaseDate);
 
   const isReleaseDateInFuture = releaseDate > today;
-
+  console.log(name.split(" ").join("-"))
   return (
     <StyledReleasePage>
       <SanityPicture
@@ -84,14 +84,14 @@ const Song = ({ pageContent }) => {
           {isReleaseDateInFuture
             ? preSaveLink && (
                 <Link href={preSaveLink} passHref>
-                  <a className={`umami--click--spotify-${name}`} target="_blank" onClick={triggerSpotifyClick}>
+                  <a className={`umami--click--spotify-${name.split(" ").join("-")}`} target="_blank" onClick={triggerSpotifyClick}>
                     <p>Pre Save</p>
                   </a>
                 </Link>
               )
             : songLink && (
                 <Link href={songLink} passHref>
-                  <a className={`umami--click--spotify-${name}`} target="_blank" onClick={triggerSpotifyClick}>
+                  <a className={`umami--click--spotify-${name.split(" ").join("-")}`} target="_blank" onClick={triggerSpotifyClick}>
                     <p>Listen</p>
                   </a>
                 </Link>
