@@ -1,15 +1,8 @@
-// import { useEffect } from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import SanityPicture from "../../components/SanityPicture";
 import Seo from "../../components/Seo";
-import {
-  getAllSongReleaseSlugs,
-  getReleasePageContent,
-  // getSiteSettings,
-} from "../../lib/api";
-// import { useGlobalState } from "../../state";
+import { getAllSongReleaseSlugs, getReleasePageContent } from "../../lib/api";
 import * as fbq from "../../lib/fpixel";
 
 export const getStaticPaths = async () => {
@@ -67,30 +60,45 @@ const Song = ({ pageContent }) => {
         // width={image.width}
         // height={image.height}
       />
-      <Seo 
-        title={`Eunice Keitan - ${name}`}
-      />
+      <Seo title={`Eunice Keitan - ${name}`} />
       <article>
         <h2>Eunice Keitan</h2>
         <h1>{name}</h1>
 
         <section className="spotify-link">
-          <img
-            src="/spotify-logo-green.png"
-            alt="spotify logo"
-            className="spotify-logo"
-          />
           {isReleaseDateInFuture
             ? preSaveLink && (
                 <Link href={preSaveLink} passHref>
-                  <a className={`umami--click--spotify-${name.split(" ").join("-")}`} target="_blank" onClick={triggerSpotifyClick}>
+                  <a
+                    className={`umami--click--spotify-${name
+                      .split(" ")
+                      .join("-")}`}
+                    target="_blank"
+                    onClick={triggerSpotifyClick}
+                  >
+                    <img
+                      src="/spotify-logo-green.png"
+                      alt="spotify logo"
+                      className="spotify-logo"
+                    />
                     <p>Pre Save</p>
                   </a>
                 </Link>
               )
             : songLink && (
                 <Link href={songLink} passHref>
-                  <a className={`umami--click--spotify-${name.split(" ").join("-")}`} target="_blank" onClick={triggerSpotifyClick}>
+                  <a
+                    className={`umami--click--spotify-${name
+                      .split(" ")
+                      .join("-")}`}
+                    target="_blank"
+                    onClick={triggerSpotifyClick}
+                  >
+                    <img
+                      src="/spotify-logo-green.png"
+                      alt="spotify logo"
+                      className="spotify-logo"
+                    />
                     <p>Listen</p>
                   </a>
                 </Link>
@@ -134,34 +142,26 @@ const StyledReleasePage = styled.main`
       display: flex;
       align-items: center;
       gap: 1ch;
-      .spotify-logo {
-        width: 10ch;
-        /* background-color: red; */
-      }
       a {
-        padding: 0.5rem 2rem;
+        .spotify-logo {
+          width: 13ch;
+          /* background-color: red; */
+        }
         position: relative;
         width: fit-content;
         cursor: pointer;
+        display: flex;
+        gap: 1rem;
         /* border: 1px solid white; */
-        background-color: #23b26d;
         p {
+          padding: 0.5rem 2rem;
+          width: fit-content;
+          background-color: #23b26d;
           /* background-color: red; */
           color: white;
           font-size: 1rem;
           line-height: 1rem;
           font-family: "Oceanside-Typewriter";
-        }
-        &:after {
-          content: "";
-          background-color: white;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          opacity: 0.8;
-          z-index: -1;
         }
       }
     }
@@ -173,8 +173,6 @@ const StyledReleasePage = styled.main`
     left: 0;
     width: 100vw;
     min-height: 100vh;
-    /* object-position: top left; */
-    /* translate: 0 -10rem; */
     z-index: -1;
     img {
       width: 100%;
@@ -182,6 +180,14 @@ const StyledReleasePage = styled.main`
       height: 100%;
       object-fit: cover;
       object-position: right center;
+
+    }
+    &::after {
+      content: "";
+      inset: 0;
+      background-color: black;
+      position: absolute;
+      opacity: 0.6;
     }
   }
 `;
