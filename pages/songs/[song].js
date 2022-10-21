@@ -79,14 +79,14 @@ const Song = ({ pageContent }) => {
           {isReleaseDateInFuture
             ? preSaveLink && (
                 <Link href={preSaveLink} passHref>
-                  <a target="_blank" onClick={triggerSpotifyClick}>
+                  <a className="umami--click--spotify-button" target="_blank" onClick={triggerSpotifyClick}>
                     <p>Pre Save</p>
                   </a>
                 </Link>
               )
             : songLink && (
                 <Link href={songLink} passHref>
-                  <a target="_blank" onClick={triggerSpotifyClick}>
+                  <a className="umami--click--spotify-button" target="_blank" onClick={triggerSpotifyClick}>
                     <p>Listen</p>
                   </a>
                 </Link>
