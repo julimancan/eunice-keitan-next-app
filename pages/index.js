@@ -6,6 +6,7 @@ import Head from "next/head";
 import Button from "./../components/Button";
 import SongLinks from "../components/SongLinks";
 import Link from "next/link";
+import SocialIcons from "../components/SocialIcons";
 
 const HomeContainer = styled.main`
   display: grid;
@@ -27,12 +28,22 @@ const HomeContainer = styled.main`
       overflow: hidden;
       font-size: minmax(1.5rem, 3rem);
     }
+    .social-wrapper {
+      /* background-color: red; */
+      width: fit-content;
+      margin: 0 auto 1rem;
+      .social-icons {
+        width: 100%;
+        gap: 1rem;
+      }
+    }
     h2 {
       font-family: "Oceanside-Typewriter";
       font-size: 1rem;
+      /* background-color: violet; */
       text-align: center;
       @media (min-width: 800px) {
-        font-size: 1.8rem;
+        font-size: 1rem;
       }
     }
     a {
@@ -82,6 +93,10 @@ export default function Home({ siteConfig, homepageContent }) {
       </HeroImage>
       <article>
         <h1>{subtitle}</h1>
+        <div className="social-wrapper">
+        <SocialIcons insta={false} facebook={false} />
+        </div>
+
         <h2>{subtitle2}</h2>
         {showLink && (
           <Link href={button.linkUrl} passHref>
