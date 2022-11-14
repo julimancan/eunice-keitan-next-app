@@ -164,6 +164,13 @@ const EpkWrap = styled.main`
           height: 100%;
         }
       }
+      .video-list {
+        /* background-color: red; */
+        display: grid;
+        /* grid-template-columns: repeat(3, 1fr); */
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1rem;
+      }
     }
   }
   .artInfo-press {
@@ -351,14 +358,15 @@ const epk = ({ siteConfig, epkPageContent }) => {
     recentPress,
     bioImage,
     lyrics,
+    youtubeVideoArray,
   } = epkPageContent;
   useEffect(() => {
-    setPageLock(epkLock);
+    // setPageLock(epkLock);
     setSiteSettings(siteConfig[0]);
     setColors({
       ...colors,
       menuBackgroundColor: siteConfig[0].menuBgColor,
-      menuBarColor: siteConfig[0].menuBgColor
+      menuBarColor: siteConfig[0].menuBgColor,
     });
   }, []);
   const passwordCheck = (event) => {
@@ -372,6 +380,7 @@ const epk = ({ siteConfig, epkPageContent }) => {
       }, 2500);
     }
   };
+  console.log({ youtubeVideoArray });
 
   return (
     <EpkWrap>
@@ -427,9 +436,22 @@ const epk = ({ siteConfig, epkPageContent }) => {
             <section className="video-notes">
               <h3>{otherNotestitle}</h3>
               <TextContent content={otherNotes} />
-              <div
-                dangerouslySetInnerHTML={{ __html: youtubeSingleEmbed }}
-              ></div>
+              {releaseType === "single" ? (
+                <div
+                  dangerouslySetInnerHTML={{ __html: youtubeSingleEmbed }}
+                ></div>
+              ) : (
+                <section className="video-list">
+                  {youtubeVideoArray.map((video, index) => (
+                    <div key={index}>
+                      <h3>{video.name}</h3>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: video.youtubeEmbed }}
+                      ></div>
+                    </div>
+                  ))}
+                </section>
+              )}
             </section>
           </article>
           <article className="artInfo-press">
