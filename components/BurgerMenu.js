@@ -38,15 +38,13 @@ const Burger = styled.div`
     width: ${({ open }) => (open ? "40px" : "50px")};
     height: 5px;
     background: ${({ colors, inVideos, open, inEpk }) =>
-      inEpk && open ? "white" : 
-      inVideos
+      inEpk && open
+        ? "white"
+        : inVideos
         ? open
           ? colors.videosPageBackground
           : colors.menuBackgroundColor
-          
-        : 
-        // inEpk ? "white" : 
-        colors.menuBarColor};
+        : colors.menuBarColor};
     position: absolute;
     transition: background ${transitionDuration}, top ${transitionDuration},
       bottom ${transitionDuration}, transform ${transitionDuration},
@@ -87,7 +85,7 @@ const NavContainer = styled.nav`
     position: fixed;
     right: 1rem;
     top: 5rem;
-    display: ${({ open }) => open ? "none" : "block"};
+    display: ${({ open }) => (open ? "none" : "block")};
 
     @media (min-width: 1068px) {
       display: none;
@@ -116,7 +114,11 @@ const NavigationItem = styled.li`
   h2 {
     display: ${({ open }) => (open ? "block" : "none")};
     color: ${({ colors, inVideos, inEpk }) =>
-      inVideos ? colors.videosPageBackground : inEpk ? "white" : colors.menuBarColor};
+      inVideos
+        ? colors.videosPageBackground
+        : inEpk
+        ? "white"
+        : colors.menuBarColor};
     text-transform: uppercase;
     /* font-weight: bold; */
     margin: 0.3rem;
@@ -151,7 +153,7 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
         onClick={() => setNavOpen(!navOpen)}
         inVideos={route === "/videos"}
         inEpk={route === "/epk"}
-        >
+      >
         <Burger
           open={navOpen}
           colors={colors}
@@ -192,7 +194,7 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
             colors={colors}
             inVideos={route === "/videos"}
             inEpk={route === "/epk"}
-            >
+          >
             <Link href={item.url}>
               <h2 onClick={() => closeCheckoutAndNav()}>{item.name}</h2>
             </Link>

@@ -157,7 +157,6 @@ const EpkWrap = styled.main`
       }
       div {
         width: 100%;
-        aspect-ratio: 16/9;
         iframe {
           aspect-ratio: 16/9;
           width: 100%;
