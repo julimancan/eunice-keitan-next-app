@@ -361,7 +361,7 @@ const epk = ({ siteConfig, epkPageContent }) => {
     youtubeVideoArray,
   } = epkPageContent;
   useEffect(() => {
-    // setPageLock(epkLock);
+    setPageLock(epkLock);
     setSiteSettings(siteConfig[0]);
     setColors({
       ...colors,
