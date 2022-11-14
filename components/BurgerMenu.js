@@ -37,12 +37,16 @@ const Burger = styled.div`
     border-radius: 5px;
     width: ${({ open }) => (open ? "40px" : "50px")};
     height: 5px;
-    background: ${({ colors, inVideos, open }) =>
+    background: ${({ colors, inVideos, open, inEpk }) =>
+      inEpk && open ? "white" : 
       inVideos
         ? open
           ? colors.videosPageBackground
           : colors.menuBackgroundColor
-        : colors.menuBarColor};
+          
+        : 
+        // inEpk ? "white" : 
+        colors.menuBarColor};
     position: absolute;
     transition: background ${transitionDuration}, top ${transitionDuration},
       bottom ${transitionDuration}, transform ${transitionDuration},
@@ -111,8 +115,8 @@ const NavigationItem = styled.li`
   animation-timing-function: ease-in-out;
   h2 {
     display: ${({ open }) => (open ? "block" : "none")};
-    color: ${({ colors, inVideos }) =>
-      inVideos ? colors.videosPageBackground : colors.menuBarColor};
+    color: ${({ colors, inVideos, inEpk }) =>
+      inVideos ? colors.videosPageBackground : inEpk ? "white" : colors.menuBarColor};
     text-transform: uppercase;
     /* font-weight: bold; */
     margin: 0.3rem;
@@ -135,7 +139,7 @@ const NavigationItem = styled.li`
 const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
   const [colors] = useGlobalState("colors");
   const [siteSettings] = useGlobalState("siteSettings");
-  const [checkout, setCheckout] = useState(false);
+  // const [checkout, setCheckout] = useState(false);
 
   const router = useRouter();
   const { route } = router;
@@ -146,12 +150,14 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
         open={navOpen}
         onClick={() => setNavOpen(!navOpen)}
         inVideos={route === "/videos"}
-      >
+        inEpk={route === "/epk"}
+        >
         <Burger
           open={navOpen}
           colors={colors}
           siteSettings={siteSettings}
           inVideos={route === "/videos"}
+          inEpk={route === "/epk"}
         />
       </BurgerContainer>
       {/* {checkout ? (
@@ -185,7 +191,8 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
             index={item.index}
             colors={colors}
             inVideos={route === "/videos"}
-          >
+            inEpk={route === "/epk"}
+            >
             <Link href={item.url}>
               <h2 onClick={() => closeCheckoutAndNav()}>{item.name}</h2>
             </Link>
@@ -197,6 +204,7 @@ const Menu = ({ navOpen, setNavOpen, closeCheckoutAndNav }) => {
           index={menuItems.length}
           colors={colors}
           inVideos={route === "/videos"}
+          inEpk={route === "/epk"}
         >
           <SocialIcons />
         </NavigationItem>
