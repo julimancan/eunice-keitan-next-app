@@ -115,15 +115,15 @@ const videos = ({ tbftData, originalsData, siteConfig, videosPageContent }) => {
     })
   }, []);
 
-  const { soundcloudTopTracksLink, pageTextColor, pageBgColor } = videosPageContent;
+  const { spotifyPlaylist, pageTextColor, pageBgColor } = videosPageContent;
   const { bioTitle, bioText } = siteSettings;
-
+  console.log({bioText});
   return (
     <VideosPageContainer pageTextColor={pageTextColor} pageBgColor={pageBgColor} >
       <Bio
         bioTitle={bioTitle}
         bioText={bioText}
-        soundcloudTopTracksLink={soundcloudTopTracksLink}
+        spotifyPlaylist={spotifyPlaylist}
       />
       <OriginalVideos originalsData={originalsData} current="videos" />
       <Tbft tbftData={tbftData} current="tbft" />

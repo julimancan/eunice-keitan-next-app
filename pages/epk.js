@@ -93,38 +93,28 @@ const EpkWrap = styled.main`
       margin: 0.2rem;
     }
 
-    .soundcloud-notes {
+    .spotify-notes {
       margin: 1rem 0;
       display: flex;
       flex-direction: column;
       padding-top: 0;
       height: 100%;
-      .soundcloud-player {
+      /* background-color: yellow; */
+      .spotify-player {
         width: 100%;
+        min-width: 300px;
+        min-height: 100%;
         height: 100%;
-        min-height: 300px;
-        max-height: 400px;
-        aspect-ratio: 1/1;
+        @media (min-width: 700px) {
+          
+          margin: 0 2rem;
+        }
+        
+        /* max-height: 400px; */
+        /* aspect-ratio: 1/1; */
+        /* background-color: blue; */
         iframe {
-          height: 350px;
-          width: 85vw;
-          margin: 0 auto 1rem;
-          @media (min-width: 800px) {
-            height: 550px;
-            width: 100%;
-          }
-          @media (min-width: 900px) {
-            height: 500px;
-          }
-          @media (min-width: 980px) {
-            height: 450px;
-          }
-          @media (min-width: 1280px) {
-            height: 350px;
-          }
-          @media (min-width: 1380px) {
-            height: 350px;
-          }
+          min-height: 100%;
         }
       }
 
@@ -286,7 +276,7 @@ const EpkWrap = styled.main`
       margin-top: 0rem;
     }
     .top-article {
-      .soundcloud-notes {
+      .spotify-notes {
         flex-direction: row;
         margin: 1rem 0;
         .notes {
@@ -330,8 +320,13 @@ export async function getStaticProps() {
 }
 
 const epk = ({ siteConfig, epkPageContent }) => {
+  const env = process.env.NODE_ENV;
+  console.log("env", env);
+  // const [pageLock, setPageLock] = useState(env === "development" ? true : false);
   const [pageLock, setPageLock] = useState(false);
+
   const [password, setPassword] = useState("no password set");
+  // get the environment production or dev
   const [wrongPassword, setWrongPassword] = useState(false);
 
   const [siteSettings, setSiteSettings] = useGlobalState("siteSettings");
@@ -344,7 +339,7 @@ const epk = ({ siteConfig, epkPageContent }) => {
     epkLockPw,
     epkLockPwCtaText,
     releaseType,
-    soundCloudEpkEmbed,
+    spotifyPlaylist,
     youtubeSingleEmbed,
     releaseDate,
     releaseNotesTitle,
@@ -360,7 +355,7 @@ const epk = ({ siteConfig, epkPageContent }) => {
     youtubeVideoArray,
   } = epkPageContent;
   useEffect(() => {
-    setPageLock(epkLock);
+    setPageLock(env === "development" ? false : epkLock);
     setSiteSettings(siteConfig[0]);
     setColors({
       ...colors,
@@ -379,7 +374,7 @@ const epk = ({ siteConfig, epkPageContent }) => {
       }, 2500);
     }
   };
-  console.log({ youtubeVideoArray });
+  // console.log({ youtubeVideoArray });
 
   return (
     <EpkWrap>
@@ -419,18 +414,18 @@ const epk = ({ siteConfig, epkPageContent }) => {
               {title} {`(${releaseType})`}
             </h2>
             <h3 className="release-date">Release Date: {releaseDate}</h3>
-            <section className="soundcloud-notes">
-              <div
-                dangerouslySetInnerHTML={{ __html: soundCloudEpkEmbed }}
-                className="soundcloud-player"
-              ></div>
-
+            <section className="spotify-notes">
               <div className="notes">
                 <h3>
                   {releaseNotesTitle} {title}
                 </h3>
                 <TextContent content={releaseNotes} />
               </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: spotifyPlaylist }}
+                className="spotify-player"
+              ></div>
+
             </section>
             <section className="video-notes">
               <h3>{otherNotestitle}</h3>
