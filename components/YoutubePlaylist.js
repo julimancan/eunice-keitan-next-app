@@ -47,6 +47,10 @@ const YoutubeContainer = styled.section`
       grid-template-columns: 1fr;
     }
   }
+  @media (min-width: 800px) {
+    padding-top: 0 !important;
+    /* background-color: violet; */
+  }
 `;
 
 const VideoModal = styled.div`
@@ -172,12 +176,13 @@ export default function YoutubePlaylist({ videos, current }) {
   const getArtistName = (string) => string.split("-")[1];
 
   const getFirstParagraph = (string) => string.split("**")[0];
-  // console.log({videos});
+  console.log({ videos });
   return (
     <YoutubeContainer>
       <ul>
-        {videos.items &&
-          videos.items.map((item, index) => {
+        {videos &&
+          Array.isArray(videos) &&
+          videos.map((item, index) => {
             const { id, snippet = {} } = item;
             const { title, thumbnails = {}, resourceId, description } = snippet;
             const { medium = {} } = thumbnails;
@@ -197,14 +202,8 @@ export default function YoutubePlaylist({ videos, current }) {
               >
                 <h3>{title}</h3>
                 <div className="image-wrapper">
-                  <img
-                    // width={medium.width}
-                    // height={medium.height}
-                    src={medium.url}
-                    alt={medium.title}
-                  />
+                  <img src={medium.url} alt={medium.title} />
                 </div>
-                {/* </a> */}
               </li>
             );
           })}
