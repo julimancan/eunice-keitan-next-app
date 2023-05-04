@@ -118,7 +118,7 @@ const videos = ({ tbftData, originalsData, siteConfig, videosPageContent }) => {
 
   const { spotifyPlaylist, pageTextColor, pageBgColor } = videosPageContent;
   const { bioTitle, bioText } = siteSettings;
-  console.log({bioText});
+  // console.log({bioText});
   return (
     <VideosPageContainer pageTextColor={pageTextColor} pageBgColor={pageBgColor} >
       <Bio

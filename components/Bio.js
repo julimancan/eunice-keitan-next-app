@@ -61,7 +61,7 @@ const BioContainer = styled.article`
 `;
 
 const Bio = ({ bioTitle, bioText, spotifyPlaylist }) => {
-  console.log({spotifyPlaylist});
+  // console.log({spotifyPlaylist});
   return (
     <BioContainer>
       <div className="bio">
